@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Classic PW - Alvorecer Sombrio | Dashboard {{ generated_at.strftime('%d/%m/%Y') }}</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface-alt: #20232e;
+            --surface-hover: #252938;
+            --border: #2d3147;
+            --border-soft: #222535;
+            --text: #c8cfe0;
+            --text-bright: #edf0fa;
+            --text-muted: #6b7494;
+            --blue: #5865f2;
+            --blue-soft: #1a1e3a;
+            --green: #3ba55c;
+            --green-bright: #4ade80;
+            --green-soft: #0d2218;
+            --red: #ed4245;
+            --red-bright: #f87171;
+            --red-soft: #2d0f10;
+            --gold: #faa61a;
+            --gold-soft: #2a1e00;
+            --purple: #a371f7;
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #1a1d2e 0%, #12141f 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 22px;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 12px; flex-wrap: wrap; flex-shrink: 0;
+        }
+        .header-brand { display: flex; align-items: center; gap: 12px; }
+        .header-logo  { height: 32px; width: auto; flex-shrink: 0; }
+        .header-title { font-size: 17px; font-weight: 700; color: var(--text-bright); }
+        .header-title-sub { font-size: 13px; font-weight: 400; color: var(--text-muted); }
+        .header-badges { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+        .badge {
+            display: flex; align-items: center; gap: 6px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 5px 11px;
+            font-size: 12px; font-weight: 600; color: var(--text-muted); white-space: nowrap;
+        }
+        .badge-blue { background: var(--blue-soft); border-color: rgba(88,101,242,.3); color: #93a8f4; }
+        .update-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-bright); box-shadow: 0 0 6px var(--green-bright); flex-shrink: 0; }
+
+        /* ── Period nav ── */
+        .period-nav {
+            background: var(--surface); border-bottom: 1px solid var(--border);
+            padding: 0 22px; display: flex; gap: 2px; flex-shrink: 0;
+        }
+        .nav-sep { width: 1px; background: var(--border); margin: 6px 6px; flex-shrink: 0; }
+        .period-tab {
+            padding: 8px 15px; font-size: 13px; font-weight: 600;
+            color: var(--text-muted); text-decoration: none;
+            border-bottom: 2px solid transparent; transition: all .12s;
+        }
+        .period-tab:hover { color: var(--text-bright); }
+        .period-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+        .period-tab-kda { color: var(--gold-text, #c8a84b); }
+        .period-tab-kda:hover { color: var(--gold); }
+        :root { --gold-text: #c8a84b; }
+
+        /* ── Wrapper ── */
+        .dash-wrapper {
+            flex: 1; min-height: 0;
+            display: flex; flex-direction: column;
+            gap: 9px; padding: 10px 20px 14px; overflow: hidden;
+        }
+
+        /* ── Metrics ── */
+        .metrics-row {
+            display: flex; gap: 9px; flex-shrink: 0; align-items: stretch;
+        }
+        .metric {
+            flex: 1;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 10px 14px;
+            position: relative; overflow: hidden;
+        }
+        .metric::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+        .metric-total::before    { background: var(--blue); }
+        .metric-likes::before    { background: var(--green); }
+        .metric-dislikes::before { background: var(--red); }
+        .metric-limit::before    { background: var(--purple); }
+        .metric-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: 3px; }
+        .metric-value       { font-size: 24px; font-weight: 700; color: var(--text-bright); line-height: 1; }
+        .metric-value.green { color: var(--green-bright); }
+        .metric-value.red   { color: var(--red-bright); }
+
+        /* ── Sentiment bar ── */
+        .sentiment-wrap {
+            flex: 0 0 180px;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 10px 14px;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .sentiment-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: 6px; }
+        .sentiment-bar {
+            height: 8px; border-radius: 99px; overflow: hidden;
+            display: flex; background: var(--bg); border: 1px solid var(--border-soft);
+        }
+        .sentiment-bar div { height: 100%; min-width: 0; transition: width .3s; }
+        .s-crit { background: var(--red); }
+        .s-neu  { background: var(--text-muted); }
+        .s-pos  { background: var(--green); }
+        .sentiment-legend { display: flex; gap: 10px; margin-top: 6px; font-size: 11px; font-weight: 700; flex-wrap: wrap; }
+
+        /* ── Dashboard flex grid ── */
+        .dash-grid {
+            flex: 1; min-height: 0;
+            display: flex; gap: 10px;
+        }
+        .dash-col {
+            min-height: 0; display: flex; flex-direction: column;
+            transition: flex .2s ease, min-width .2s ease;
+        }
+        .dash-col-sug { flex: 2; min-width: 200px; }
+        .dash-col-mid { flex: 2; min-width: 180px; }
+        .dash-col-ai  { flex: 4; min-width: 260px; }
+
+        /* Collapsed state */
+        .dash-col.collapsed { flex: 0 0 28px !important; min-width: 28px !important; }
+        .dash-col.collapsed .search-row,
+        .dash-col.collapsed .dash-scroll { display: none; }
+        .dash-col.collapsed .panel-head { flex-direction: column; padding: 8px 4px; gap: 6px; align-items: center; justify-content: flex-start; }
+        .dash-col.collapsed .panel-head > *:not(.col-toggle) { display: none; }
+
+        /* ── Panel ── */
+        .dash-panel {
+            flex: 1; min-height: 0; display: flex; flex-direction: column;
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); overflow: hidden;
+        }
+        .dash-col-ai .dash-panel {
+            border-color: rgba(88,101,242,.3);
+            box-shadow: 0 0 0 1px rgba(88,101,242,.08), 0 4px 20px rgba(0,0,0,.25);
+        }
+        .dash-col-ai .panel-head {
+            background: linear-gradient(90deg, #1a1e3a 0%, var(--surface) 100%);
+            border-bottom-color: rgba(88,101,242,.2);
+        }
+
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+            gap: 8px;
+        }
+        .panel-title { font-size: 13px; font-weight: 700; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .panel-badge { font-size: 11px; color: var(--text-muted); background: var(--surface-hover); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); white-space: nowrap; flex-shrink: 0; }
+        .panel-head-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+        /* Collapse toggle */
+        .col-toggle {
+            background: none; border: 1px solid var(--border); border-radius: 4px;
+            color: var(--text-muted); cursor: pointer; font-size: 13px;
+            padding: 1px 5px; line-height: 1; transition: all .12s; flex-shrink: 0;
+        }
+        .col-toggle:hover { color: var(--text-bright); border-color: var(--text-muted); }
+
+        /* Sort chips */
+        .sort-row { display: flex; gap: 4px; padding: 6px 12px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+        .sort-chip {
+            padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600;
+            cursor: pointer; background: var(--surface-hover); color: var(--text-muted);
+            border: 1px solid var(--border); transition: all .12s; user-select: none;
+        }
+        .sort-chip:hover  { color: var(--text-bright); }
+        .sort-chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+        /* ── Scrollable ── */
+        .dash-scroll { flex: 1; min-height: 0; overflow-y: auto; }
+        .dash-scroll::-webkit-scrollbar { width: 3px; }
+        .dash-scroll::-webkit-scrollbar-track { background: transparent; }
+        .dash-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+        .dash-scroll:hover::-webkit-scrollbar-thumb { background: var(--text-muted); }
+
+        /* ── Search ── */
+        .search-row { padding: 7px 12px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
+        .search-input { width: 100%; padding: 6px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-bright); font-size: 12px; outline: none; transition: border-color .15s; }
+        .search-input::placeholder { color: var(--text-muted); }
+        .search-input:focus { border-color: var(--blue); }
+        .cat-filter-bar { display: flex; gap: 4px; flex-wrap: wrap; }
+        .cat-chip { padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; cursor: pointer; background: var(--surface-hover); color: var(--text-muted); border: 1px solid var(--border); transition: all .12s; user-select: none; }
+        .cat-chip:hover  { color: var(--text-bright); }
+        .cat-chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+        /* ── Suggestions ── */
+        .suggestion {
+            padding: 10px 13px; border-top: 1px solid var(--border-soft);
+            border-left: 3px solid transparent;
+            transition: background .2s;
+        }
+        .suggestion:first-of-type { border-top: 0; }
+        .suggestion.hidden-suggestion { display: none; }
+        .suggestion.highlighted { background: rgba(88,101,242,.08); }
+        .sug-score-pos { border-left-color: var(--green) !important; }
+        .sug-score-neg { border-left-color: var(--red) !important; }
+        .sug-score-neu { border-left-color: var(--border) !important; }
+        .suggestion-author   { font-weight: 700; color: var(--text-bright); font-size: 12px; }
+        .suggestion-username { font-size: 10px; color: var(--text-muted); }
+        .suggestion-content  { margin-top: 6px; font-size: 12px; color: var(--text); line-height: 1.5; white-space: pre-wrap; }
+        .expand-btn { display: inline-flex; align-items: center; gap: 3px; margin-top: 4px; padding: 2px 7px; background: var(--surface-hover); border: 1px solid var(--border); border-radius: 999px; color: var(--blue); font-size: 11px; font-weight: 600; cursor: pointer; transition: all .12s; }
+        .expand-btn:hover { background: var(--blue-soft); border-color: var(--blue); }
+        .votes { display: flex; gap: 7px; margin-top: 6px; font-size: 11px; font-weight: 700; flex-wrap: wrap; align-items: center; }
+        .v-likes     { color: var(--green-bright); }
+        .v-dislikes  { color: var(--red-bright); }
+        .v-score-pos { color: var(--green-bright); }
+        .v-score-neg { color: var(--red-bright); }
+        .v-score-neu { color: var(--text-muted); }
+        .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .tag { padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+        .tag.topic    { background: var(--surface-hover); color: var(--text); }
+        .tag.category { background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(250,166,26,.22); cursor: pointer; }
+        .tag.category:hover { opacity: .8; }
+        .tag.critico, .tag.crítico { background: var(--red-soft); color: var(--red-bright); border: 1px solid rgba(237,66,69,.2); }
+        .tag.positivo { background: var(--green-soft); color: var(--green-bright); border: 1px solid rgba(59,165,92,.2); }
+        .tag.neutro   { background: var(--surface-hover); color: var(--text-muted); }
+        .jump-link { display: inline-flex; align-items: center; gap: 3px; margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--blue); text-decoration: none; }
+        .jump-link:hover { color: #8b9cf4; }
+        #no-results { display: none; padding: 20px; text-align: center; color: var(--text-muted); font-size: 12px; }
+        .empty-notice { padding: 16px; text-align: center; color: var(--text-muted); font-size: 12px; }
+
+        /* ── Section label ── */
+        .section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); padding: 10px 12px 4px; }
+        .section-sep { border-top: 1px solid var(--border); }
+
+        /* ── Topic cards ── */
+        .topic-grid { display: flex; flex-direction: column; gap: 8px; padding: 8px 10px; }
+        .topic-card { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+        .topic-card-head { display: flex; align-items: center; gap: 7px; padding: 8px 10px; border-bottom: 1px solid var(--border-soft); }
+        .topic-count-badge { background: var(--blue-soft); color: var(--blue); border: 1px solid rgba(88,101,242,.25); border-radius: 999px; font-size: 10px; font-weight: 700; padding: 1px 6px; flex-shrink: 0; }
+        .topic-name { font-size: 11px; font-weight: 700; color: var(--text-bright); flex: 1; }
+        .topic-cat-badge { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 999px; background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(250,166,26,.2); flex-shrink: 0; }
+        .topic-card-body { padding: 8px 10px; }
+        .topic-vote-row { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+        .topic-vote-num { font-size: 11px; font-weight: 700; white-space: nowrap; }
+        .tv-likes    { color: var(--green-bright); }
+        .tv-dislikes { color: var(--red-bright); }
+        .topic-bar-track { flex: 1; height: 5px; border-radius: 99px; background: var(--bg); border: 1px solid var(--border-soft); overflow: hidden; display: flex; }
+        .topic-bar-like    { background: var(--green); height: 100%; min-width: 0; }
+        .topic-bar-dislike { background: var(--red);   height: 100%; min-width: 0; }
+        .topic-score { font-size: 10px; color: var(--text-muted); padding: 1px 6px; background: var(--surface-hover); border-radius: 999px; border: 1px solid var(--border-soft); white-space: nowrap; flex-shrink: 0; }
+        .topic-examples { display: flex; flex-direction: column; gap: 5px; }
+        .topic-example {
+            background: var(--bg); border: 1px solid var(--border-soft);
+            border-radius: var(--radius-sm); padding: 7px 9px;
+            cursor: pointer; transition: border-color .15s, background .15s;
+        }
+        .topic-example:hover { border-color: var(--blue); background: rgba(88,101,242,.05); }
+        .topic-example-head { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; flex-wrap: wrap; }
+        .topic-example-author { font-size: 11px; font-weight: 700; color: var(--text-bright); }
+        .topic-example-date   { font-size: 10px; color: var(--text-muted); }
+        .topic-example-votes  { display: flex; gap: 5px; margin-left: auto; font-size: 10px; font-weight: 700; }
+        .topic-example-content { font-size: 11px; color: var(--text); line-height: 1.4; }
+        .topic-example-hint { font-size: 10px; color: var(--blue); margin-top: 3px; }
+
+        /* ── Rankings ── */
+        .rank-item { padding: 7px 12px; border-top: 1px solid var(--border-soft); }
+        .rank-item:first-child { border-top: 0; }
+        .rank-num    { font-size: 10px; font-weight: 700; color: var(--text-muted); }
+        .rank-content { font-size: 11px; margin-top: 2px; color: var(--text); line-height: 1.4; }
+        .rank-votes  { display: flex; gap: 6px; margin-top: 4px; font-size: 11px; font-weight: 700; }
+
+        /* ── Conclusão / AI ── */
+        .conclusao-wrap { padding: 12px; }
+        .conclusao-block {
+            background: linear-gradient(135deg, #1a1e3a, #1d2035);
+            border: 1px solid rgba(88,101,242,.3);
+            border-radius: var(--radius-sm); padding: 12px 14px;
+        }
+        .conclusao-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .conclusao-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--blue); }
+        .conclusao-text  { font-size: 12px; color: #c0c8f0; line-height: 1.75; white-space: pre-line; }
+        .copy-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 9px; border-radius: var(--radius-sm);
+            background: var(--blue-soft); border: 1px solid rgba(88,101,242,.3);
+            color: #93a8f4; font-size: 11px; font-weight: 600;
+            cursor: pointer; transition: all .15s;
+        }
+        .copy-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+        .feedback-list { display: flex; flex-direction: column; gap: 7px; padding: 0 12px 12px; }
+        .feedback-card { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-alt); overflow: hidden; }
+        .feedback-card-head { display: flex; align-items: center; gap: 7px; padding: 8px 11px; border-bottom: 1px solid var(--border-soft); }
+        .feedback-rank { width: 20px; height: 20px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .feedback-titulo { font-size: 12px; font-weight: 700; color: var(--text-bright); flex: 1; }
+        .priority { padding: 1px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
+        .priority-alta  { background: rgba(237,66,69,.18);  color: var(--red-bright);  border: 1px solid rgba(237,66,69,.28); }
+        .priority-media { background: rgba(250,166,26,.15); color: var(--gold);         border: 1px solid rgba(250,166,26,.28); }
+        .priority-baixa { background: rgba(59,165,92,.15);  color: var(--green-bright); border: 1px solid rgba(59,165,92,.25); }
+        .feedback-card-body { padding: 9px 11px; }
+        .feedback-meta { display: flex; gap: 8px; margin-bottom: 6px; font-size: 11px; color: var(--text-muted); flex-wrap: wrap; align-items: center; }
+        .fb-apoios { color: var(--green-bright); font-weight: 700; }
+        .fb-contra { color: var(--red-bright); font-weight: 700; }
+        .fb-bar-track { flex: 0 0 60px; height: 4px; border-radius: 99px; background: var(--bg); border: 1px solid var(--border-soft); overflow: hidden; display: flex; }
+        .fb-bar-like    { background: var(--green); height: 100%; }
+        .fb-bar-dislike { background: var(--red);   height: 100%; }
+        .feedback-resumo { font-size: 12px; color: var(--text); line-height: 1.5; }
+        .no-ai-notice { padding: 24px 14px; text-align: center; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+
+        /* ── Responsive ── */
+        @media (max-width: 960px) {
+            html, body { height: auto; overflow: auto; }
+            .dash-wrapper { overflow: visible; }
+            .dash-grid { flex-direction: column; }
+            .dash-col { flex: none !important; min-width: 0 !important; max-height: 500px; }
+            .metrics-row { flex-wrap: wrap; }
+            .sentiment-wrap { flex: 0 0 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ Header ══ -->
+<header class="header">
+    <div class="header-brand">
+        {% if logo_data_url %}<img src="{{ logo_data_url }}" alt="" class="header-logo">{% endif %}
+        <div class="header-title">The Classic PW <span class="header-title-sub">— Alvorecer Sombrio</span></div>
+    </div>
+    <div class="header-badges">
+        <div class="badge badge-blue">📅 {{ payload.period.label }}</div>
+        <div class="badge"><div class="update-dot"></div>Atualizado em {{ generated_at.strftime('%d/%m/%Y') }} às {{ generated_at.strftime('%H:%M') }} UTC</div>
+    </div>
+</header>
+
+<!-- ══ Period nav ══ -->
+<nav class="period-nav">
+    {% for key, period in periods.items() %}
+        <a href="relatorio_{{ key }}.html" class="period-tab{% if key == period_key %} active{% endif %}">{{ period[0] }}</a>
+    {% endfor %}
+    {% if kda_reports %}
+        <div class="nav-sep"></div>
+        {% for kda in kda_reports %}
+            <a href="{{ kda.file }}" class="period-tab period-tab-kda">⚔ {{ kda.label }}</a>
+        {% endfor %}
+    {% endif %}
+</nav>
+
+<!-- ══ Dashboard ══ -->
+<div class="dash-wrapper">
+
+    <!-- Métricas + barra de sentimento -->
+    <div class="metrics-row">
+        <div class="metric metric-total">
+            <div class="metric-label">Sugestões</div>
+            <div class="metric-value">{{ payload.summary.total_messages }}</div>
+        </div>
+        <div class="metric metric-likes">
+            <div class="metric-label">Total Likes</div>
+            <div class="metric-value green">{{ payload.summary.total_likes }}</div>
+        </div>
+        <div class="metric metric-dislikes">
+            <div class="metric-label">Total Dislikes</div>
+            <div class="metric-value red">{{ payload.summary.total_dislikes }}</div>
+        </div>
+        <div class="metric metric-limit">
+            <div class="metric-label">Msgs lidas</div>
+            <div class="metric-value">{{ payload.period.raw_messages }}</div>
+        </div>
+
+        <!-- Sentimento -->
+        {% if llm_summary.labels_by_id %}
+        {% set ns = namespace(pos=0, neu=0, crit=0) %}
+        {% for sid, lbl in llm_summary.labels_by_id.items() %}
+            {% if lbl.sentiment == 'positivo' %}{% set ns.pos = ns.pos + 1 %}
+            {% elif lbl.sentiment in ('critico','crítico') %}{% set ns.crit = ns.crit + 1 %}
+            {% else %}{% set ns.neu = ns.neu + 1 %}{% endif %}
+        {% endfor %}
+        {% set ns.total = ns.pos + ns.neu + ns.crit %}
+        {% if ns.total > 0 %}
+        <div class="sentiment-wrap">
+            <div>
+                <div class="sentiment-label">Sentimento</div>
+                <div class="sentiment-bar">
+                    <div class="s-crit" style="width:{{ (ns.crit/ns.total*100)|round|int }}%;"></div>
+                    <div class="s-neu"  style="width:{{ (ns.neu /ns.total*100)|round|int }}%;"></div>
+                    <div class="s-pos"  style="width:{{ (ns.pos /ns.total*100)|round|int }}%;"></div>
+                </div>
+                <div class="sentiment-legend">
+                    <span style="color:var(--red-bright)">{{ ns.crit }} crítico</span>
+                    <span style="color:var(--text-muted)">{{ ns.neu }} neutro</span>
+                    <span style="color:var(--green-bright)">{{ ns.pos }} positivo</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- 3 colunas -->
+    <div class="dash-grid">
+
+        <!-- ── Col 1: Sugestões ── -->
+        <div class="dash-col dash-col-sug" id="col-sug">
+            <div class="dash-panel">
+                <div class="panel-head">
+                    <span class="panel-title">📝 Sugestões</span>
+                    <div class="panel-head-right">
+                        <span class="panel-badge">{{ suggestions|length }}</span>
+                        <button class="col-toggle" onclick="toggleCol('col-sug', this)" title="Colapsar">‹</button>
+                    </div>
+                </div>
+                <div class="sort-row">
+                    <span class="sort-chip active" data-sort="top"          onclick="sortSuggestions('top',this)">↑ Top</span>
+                    <span class="sort-chip"         data-sort="new"          onclick="sortSuggestions('new',this)">🕐 Novo</span>
+                    <span class="sort-chip"         data-sort="controversial" onclick="sortSuggestions('controversial',this)">⚡ Polêmico</span>
+                </div>
+                <div class="search-row">
+                    <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar..." oninput="filterSuggestions()">
+                    <div class="cat-filter-bar" id="cat-filter-bar"></div>
+                </div>
+                <div class="dash-scroll" id="suggestions-scroll">
+                    <div id="no-results">Nenhuma sugestão encontrada.</div>
+                    <div id="suggestions-list">
+                    {% for sug in suggestions %}
+                        {% set label = llm_summary.labels_by_id.get(sug.id) %}
+                        <article class="suggestion {% if sug.score > 0 %}sug-score-pos{% elif sug.score < 0 %}sug-score-neg{% else %}sug-score-neu{% endif %}"
+                                 data-id="{{ sug.id }}"
+                                 data-cat="{{ label.category if label else '' }}"
+                                 data-content="{{ sug.content | trim | lower }}"
+                                 data-score="{{ sug.score }}"
+                                 data-created="{{ sug.created_at }}"
+                                 data-likes="{{ sug.likes }}"
+                                 data-dislikes="{{ sug.dislikes }}">
+                            <div class="suggestion-author">{{ sug.author }}</div>
+                            <div class="suggestion-username">@{{ sug.author_username }} · {{ sug.created_at_display }}</div>
+                            <div class="suggestion-content">{% set sc = sug.content | trim %}{% if sc|length > 90 %}<span class="content-short">{{ sc[:90] }}…</span><span class="content-full" style="display:none">{{ sc }}</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button>{% else %}{{ sc }}{% endif %}</div>
+                            <div class="votes">
+                                <span class="v-likes">{{ sug.likes }} 👍</span>
+                                <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                                <span class="{% if sug.score > 0 %}v-score-pos{% elif sug.score < 0 %}v-score-neg{% else %}v-score-neu{% endif %}">{{ sug.score }}</span>
+                            </div>
+                            {% if label %}
+                                <div class="tags">
+                                    <span class="tag topic">{{ label.topic }}</span>
+                                    <span class="tag category" onclick="filterByCategory('{{ label.category }}')">{{ label.category }}</span>
+                                    <span class="tag {{ label.sentiment }}">{{ label.sentiment }}</span>
+                                </div>
+                            {% endif %}
+                            {% if sug.jump_url %}<a class="jump-link" href="{{ sug.jump_url }}" target="_blank">↗ Discord</a>{% endif %}
+                        </article>
+                    {% else %}
+                        <div class="empty-notice">Nenhuma sugestão no período.</div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Col 2: Tópicos + Rankings ── -->
+        <div class="dash-col dash-col-mid" id="col-mid">
+            <div class="dash-panel">
+                <div class="panel-head">
+                    <span class="panel-title">🏷 Tópicos & Rankings</span>
+                    <div class="panel-head-right">
+                        {% if llm_summary.topic_summary %}<span class="panel-badge">{{ llm_summary.topic_summary|length }} tópicos</span>{% endif %}
+                        <button class="col-toggle" onclick="toggleCol('col-mid', this)" title="Colapsar">‹</button>
+                    </div>
+                </div>
+                <div class="dash-scroll">
+
+                    <!-- Top aprovadas -->
+                    <div class="section-label">🏆 Top aprovadas</div>
+                    {% for sug in top_positive %}
+                        <div class="rank-item">
+                            <div class="rank-num">#{{ loop.index }} · {{ sug.author }}</div>
+                            <div class="rank-content">
+                                <span class="r-short-p{{ loop.index }}">{{ sug.content[:100] }}{% if sug.content|length > 100 %}…{% endif %}</span>
+                                {% if sug.content|length > 100 %}
+                                    <span class="r-full-p{{ loop.index }}" style="display:none">{{ sug.content[100:] }}</span>
+                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-p{{ loop.index }}','r-full-p{{ loop.index }}')">▼</button>
+                                {% endif %}
+                            </div>
+                            <div class="rank-votes">
+                                <span class="v-likes">{{ sug.likes }} 👍</span>
+                                <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                                <span class="{% if sug.score > 0 %}v-score-pos{% else %}v-score-neu{% endif %}">{{ sug.score }}</span>
+                            </div>
+                        </div>
+                    {% else %}<div class="empty-notice">—</div>{% endfor %}
+
+                    <!-- Top rejeitadas -->
+                    <div class="section-label section-sep">🚫 Top rejeitadas</div>
+                    {% for sug in top_negative %}
+                        <div class="rank-item">
+                            <div class="rank-num">#{{ loop.index }} · {{ sug.author }}</div>
+                            <div class="rank-content">
+                                <span class="r-short-n{{ loop.index }}">{{ sug.content[:100] }}{% if sug.content|length > 100 %}…{% endif %}</span>
+                                {% if sug.content|length > 100 %}
+                                    <span class="r-full-n{{ loop.index }}" style="display:none">{{ sug.content[100:] }}</span>
+                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-n{{ loop.index }}','r-full-n{{ loop.index }}')">▼</button>
+                                {% endif %}
+                            </div>
+                            <div class="rank-votes">
+                                <span class="v-likes">{{ sug.likes }} 👍</span>
+                                <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                                <span class="{% if sug.score < 0 %}v-score-neg{% else %}v-score-neu{% endif %}">{{ sug.score }}</span>
+                            </div>
+                        </div>
+                    {% else %}<div class="empty-notice">—</div>{% endfor %}
+
+                    <!-- Tópicos -->
+                    {% if llm_summary.topic_summary %}
+                    <div class="section-label section-sep">🏷 Tópicos</div>
+                    <div class="topic-grid">
+                        {% for topic in llm_summary.topic_summary %}
+                            {% set tv = topic.total_likes + topic.total_dislikes %}
+                            {% set lp = (((topic.total_likes / tv) * 100) | round(0) | int) if tv > 0 else 0 %}
+                            <div class="topic-card">
+                                <div class="topic-card-head">
+                                    <span class="topic-count-badge">{{ topic.count }}x</span>
+                                    <span class="topic-name">{{ topic.topic }}</span>
+                                    <span class="topic-cat-badge">{{ topic.category }}</span>
+                                </div>
+                                <div class="topic-card-body">
+                                    <div class="topic-vote-row">
+                                        <span class="topic-vote-num tv-likes">👍 {{ topic.total_likes }}</span>
+                                        <div class="topic-bar-track">
+                                            <div class="topic-bar-like"    style="width:{{ lp }}%;"></div>
+                                            <div class="topic-bar-dislike" style="width:{{ 100-lp }}%;"></div>
+                                        </div>
+                                        <span class="topic-vote-num tv-dislikes">{{ topic.total_dislikes }} 👎</span>
+                                        <span class="topic-score">{{ topic.total_likes - topic.total_dislikes }}</span>
+                                    </div>
+                                    {% if topic.examples %}
+                                    <div class="topic-examples">
+                                        {% for ex in topic.examples %}
+                                        <div class="topic-example" onclick="highlightSuggestion('{{ ex.id }}')">
+                                            <div class="topic-example-head">
+                                                <span class="topic-example-author">{{ ex.author }}</span>
+                                                <span class="topic-example-date">{{ ex.created_at_display }}</span>
+                                                <div class="topic-example-votes">
+                                                    <span class="v-likes">{{ ex.likes }} 👍</span>
+                                                    <span class="v-dislikes">{{ ex.dislikes }} 👎</span>
+                                                </div>
+                                            </div>
+                                            <div class="topic-example-content">{% set ec = ex.content | trim %}{{ ec[:220] }}{% if ec|length > 220 %}…{% endif %}</div>
+                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Col 3: Análise IA ── -->
+        <div class="dash-col dash-col-ai" id="col-ai">
+            <div class="dash-panel">
+                <div class="panel-head">
+                    <span class="panel-title">📋 Análise IA</span>
+                    <div class="panel-head-right">
+                        {% if llm_summary.available %}<span class="panel-badge">{{ llm_summary.analyzed_count }} analisadas</span>{% endif %}
+                        <button class="col-toggle" onclick="toggleCol('col-ai', this)" title="Colapsar">‹</button>
+                    </div>
+                </div>
+                <div class="dash-scroll">
+                    {% if llm_summary.available %}
+                        <div class="conclusao-wrap">
+                            {% if llm_summary.conclusao %}
+                            <div class="conclusao-block">
+                                <div class="conclusao-head">
+                                    <div class="conclusao-label">📊 Panorama consolidado</div>
+                                    <button class="copy-btn" onclick="copyReport()">📋 Copiar</button>
+                                </div>
+                                <div class="conclusao-text">{{ llm_summary.conclusao }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% if llm_summary.feedback %}
+                        <div class="section-label section-sep">Feedback por sugestão</div>
+                        <div class="feedback-list">
+                            {% for item in llm_summary.feedback %}
+                                {% set tv = (item.n_apoios|default(0)) + (item.n_contra|default(0)) %}
+                                {% set lp = (((item.n_apoios|default(0)) / tv * 100)|round|int) if tv > 0 else 100 %}
+                                <div class="feedback-card">
+                                    <div class="feedback-card-head">
+                                        <div class="feedback-rank">{{ item.rank }}</div>
+                                        <div class="feedback-titulo">{{ item.titulo }}</div>
+                                        <span class="priority priority-{{ (item.prioridade|default('media'))|lower }}">{{ item.prioridade|default('media') }}</span>
+                                    </div>
+                                    <div class="feedback-card-body">
+                                        <div class="feedback-meta">
+                                            <span class="fb-apoios">👍 {{ item.n_apoios }}</span>
+                                            {% if item.n_contra is defined and item.n_contra %}<span class="fb-contra">👎 {{ item.n_contra }}</span>{% endif %}
+                                            <div class="fb-bar-track">
+                                                <div class="fb-bar-like"    style="width:{{ lp }}%;"></div>
+                                                <div class="fb-bar-dislike" style="width:{{ 100-lp }}%;"></div>
+                                            </div>
+                                            <span>{{ item.categoria|default('Geral') }}</span>
+                                        </div>
+                                        <div class="feedback-resumo">{{ item.resumo }}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="no-ai-notice">Relatório sem análise de IA.<br>Rode com <code>--feedback</code> para incluir.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /dash-grid -->
+</div><!-- /dash-wrapper -->
+
+<script>
+    /* ── Expand suggestion ── */
+    function toggleExpand(btn) {
+        const short = btn.previousElementSibling.previousElementSibling;
+        const full  = btn.previousElementSibling;
+        const expanded = full.style.display !== 'none';
+        short.style.display = expanded ? 'inline' : 'none';
+        full.style.display  = expanded ? 'none'   : 'inline';
+        btn.textContent = expanded ? '▼ ver mais' : '▲ ver menos';
+    }
+
+    /* ── Expand rank item ── */
+    function toggleRank(btn, shortCls, fullCls) {
+        const short = document.querySelector('.' + shortCls);
+        const full  = document.querySelector('.' + fullCls);
+        const expanded = full.style.display !== 'none';
+        short.style.display = expanded ? 'inline' : 'none';
+        full.style.display  = expanded ? 'none'   : 'inline';
+        btn.textContent = expanded ? '▼' : '▲';
+    }
+
+    /* ── Column collapse ── */
+    function toggleCol(colId, btn) {
+        const col = document.getElementById(colId);
+        const collapsed = col.classList.toggle('collapsed');
+        btn.textContent = collapsed ? '›' : '‹';
+        btn.title = collapsed ? 'Expandir' : 'Colapsar';
+    }
+
+    /* ── Sort suggestions ── */
+    function sortSuggestions(mode, chip) {
+        document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const list = document.getElementById('suggestions-list');
+        const arts = [...list.querySelectorAll('article.suggestion')];
+        arts.sort((a, b) => {
+            if (mode === 'top') {
+                return parseInt(b.dataset.score) - parseInt(a.dataset.score);
+            } else if (mode === 'new') {
+                return b.dataset.created.localeCompare(a.dataset.created);
+            } else {
+                const ca = Math.min(parseInt(a.dataset.likes), parseInt(a.dataset.dislikes));
+                const cb = Math.min(parseInt(b.dataset.likes), parseInt(b.dataset.dislikes));
+                return cb - ca;
+            }
+        });
+        arts.forEach(a => list.appendChild(a));
+    }
+
+    /* ── Highlight suggestion from topic ── */
+    function highlightSuggestion(sugId) {
+        document.querySelectorAll('.suggestion.highlighted').forEach(el => el.classList.remove('highlighted'));
+        const target = document.querySelector(`article.suggestion[data-id="${sugId}"]`);
+        if (!target) return;
+        // Expand collapsed column if needed
+        const col = document.getElementById('col-sug');
+        if (col.classList.contains('collapsed')) {
+            const btn = col.querySelector('.col-toggle');
+            toggleCol('col-sug', btn);
+        }
+        target.classList.add('highlighted');
+        const scroll = document.getElementById('suggestions-scroll');
+        scroll.scrollTo({ top: target.offsetTop - 40, behavior: 'smooth' });
+        setTimeout(() => target.classList.remove('highlighted'), 3000);
+    }
+
+    /* ── Category chips ── */
+    (function buildCatChips() {
+        const arts = document.querySelectorAll('article.suggestion[data-cat]');
+        const cats = new Set();
+        arts.forEach(a => { if (a.dataset.cat) cats.add(a.dataset.cat); });
+        if (!cats.size) return;
+        const bar = document.getElementById('cat-filter-bar');
+        if (!bar) return;
+        const all = document.createElement('span');
+        all.className = 'cat-chip active'; all.textContent = 'Todos';
+        all.onclick = () => filterByCategory('');
+        bar.appendChild(all);
+        cats.forEach(cat => {
+            const chip = document.createElement('span');
+            chip.className = 'cat-chip'; chip.textContent = cat;
+            chip.onclick = () => filterByCategory(cat);
+            bar.appendChild(chip);
+        });
+    })();
+
+    function filterByCategory(cat) {
+        document.querySelectorAll('.cat-chip').forEach(c => {
+            c.classList.toggle('active', c.textContent === (cat || 'Todos'));
+        });
+        window._activeCat = cat;
+        filterSuggestions();
+    }
+
+    function filterSuggestions() {
+        const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+        const cat   = window._activeCat || '';
+        const arts  = document.querySelectorAll('article.suggestion');
+        let visible = 0;
+        arts.forEach(art => {
+            const show = (!query || (art.dataset.content||'').includes(query))
+                      && (!cat   || (art.dataset.cat||'') === cat);
+            art.classList.toggle('hidden-suggestion', !show);
+            if (show) visible++;
+        });
+        const nr = document.getElementById('no-results');
+        if (nr) nr.style.display = visible === 0 && arts.length > 0 ? 'block' : 'none';
+    }
+
+    /* ── Copy report ── */
+    function copyReport() {
+        const conclusao = document.querySelector('.conclusao-text')?.innerText?.trim() || '';
+        const cards = [...document.querySelectorAll('.feedback-card')].map(card => {
+            const rank   = card.querySelector('.feedback-rank')?.innerText || '';
+            const titulo = card.querySelector('.feedback-titulo')?.innerText || '';
+            const prio   = card.querySelector('.priority')?.innerText || '';
+            const apoios = card.querySelector('.fb-apoios')?.innerText || '';
+            const resumo = card.querySelector('.feedback-resumo')?.innerText || '';
+            return `#${rank} [${prio.toUpperCase()}] ${titulo}\n${apoios}\n${resumo}`;
+        }).join('\n\n');
+        const sep  = '─'.repeat(40);
+        const text = `📊 PANORAMA CONSOLIDADO\n${sep}\n${conclusao}\n\n📋 FEEDBACK\n${sep}\n${cards}`;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const orig = btn.textContent;
+            btn.textContent = '✅ Copiado!';
+            setTimeout(() => { btn.textContent = orig; }, 2500);
+        });
+    }
+</script>
+</body>
+</html>

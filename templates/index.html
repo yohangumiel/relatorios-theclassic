@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Classic PW - Alvorecer Sombrio | Dashboard de Sugestoes</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface-alt: #20232e;
+            --surface-hover: #252938;
+            --border: #2d3147;
+            --border-soft: #222535;
+            --text: #c8cfe0;
+            --text-bright: #edf0fa;
+            --text-muted: #6b7494;
+            --blue: #5865f2;
+            --blue-soft: #1a1e3a;
+            --green: #3ba55c;
+            --green-bright: #4ade80;
+            --green-soft: #0d2218;
+            --red: #ed4245;
+            --red-bright: #f87171;
+            --red-soft: #2d0f10;
+            --gold: #faa61a;
+            --gold-soft: #2a1e00;
+            --purple: #a371f7;
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        /* ── Loading overlay ── */
+        #loading-overlay {
+            display: none;
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(10,11,18,.82);
+            backdrop-filter: blur(4px);
+            flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 14px;
+        }
+        #loading-overlay.visible { display: flex; }
+        .loading-spinner {
+            width: 44px; height: 44px;
+            border: 3px solid var(--border);
+            border-top-color: var(--blue);
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-label { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #1a1d2e 0%, #12141f 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 28px;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; flex-wrap: wrap;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header-brand { display: flex; align-items: center; gap: 14px; }
+        .header-logo  { height: 38px; width: auto; flex-shrink: 0; }
+        .header-title { font-size: 20px; font-weight: 700; color: var(--text-bright); }
+        .header-title-sub { font-size: 15px; font-weight: 400; color: var(--text-muted); }
+        .header-sub   { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+        .header-controls { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+        .btn-sep { width: 1px; height: 22px; background: var(--border); flex-shrink: 0; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 6px 13px; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); background: var(--surface);
+            color: var(--text); text-decoration: none;
+            font-size: 12px; font-weight: 600; white-space: nowrap;
+            transition: border-color .12s, background .12s, color .12s;
+        }
+        .btn:hover  { background: var(--surface-hover); border-color: var(--blue); color: var(--text-bright); }
+        .btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+        /* ── Page ── */
+        .page { padding: 22px 28px; display: flex; flex-direction: column; gap: 18px; }
+
+        /* ── Alerts ── */
+        .alert { padding: 12px 16px; border-radius: var(--radius); border: 1px solid; font-size: 13px; }
+        .alert-error { background: var(--red-soft);  border-color: var(--red);  color: var(--red-bright); }
+        .alert-warn  { background: var(--gold-soft); border-color: var(--gold); color: var(--gold); }
+
+        /* ── Metrics ── */
+        .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .metric {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 16px 18px;
+            position: relative; overflow: hidden;
+        }
+        .metric::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+        .metric-total::before    { background: var(--blue); }
+        .metric-likes::before    { background: var(--green); }
+        .metric-dislikes::before { background: var(--red); }
+        .metric-limit::before    { background: var(--purple); }
+        .metric-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); margin-bottom: 8px; }
+        .metric-value       { font-size: 30px; font-weight: 700; color: var(--text-bright); line-height: 1; }
+        .metric-value.green { color: var(--green-bright); }
+        .metric-value.red   { color: var(--red-bright); }
+
+        /* ── AI CTA banner ── */
+        .ai-cta {
+            background: linear-gradient(135deg, #1d2040, #171a32);
+            border: 1px solid rgba(88,101,242,.45);
+            border-radius: var(--radius);
+            padding: 18px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; flex-wrap: wrap;
+        }
+        .ai-cta-left { display: flex; align-items: center; gap: 14px; }
+        .ai-cta-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--blue), #7b68ee);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; flex-shrink: 0;
+        }
+        .ai-cta-title { font-size: 15px; font-weight: 700; color: var(--text-bright); }
+        .ai-cta-sub   { font-size: 12px; color: #93a8f4; margin-top: 3px; }
+        .ai-cta-btns  { display: flex; gap: 10px; flex-wrap: wrap; }
+        .ai-cta-btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 10px 20px; border-radius: var(--radius-sm);
+            text-decoration: none; font-size: 13px; font-weight: 700;
+            transition: all .15s;
+        }
+        .ai-cta-btn-outline { background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-bright); }
+        .ai-cta-btn-outline:hover { background: var(--surface-hover); border-color: var(--blue); }
+        .ai-cta-btn-fill { background: var(--blue); border: 1px solid var(--blue); color: #fff; }
+        .ai-cta-btn-fill:hover { background: #4752d4; border-color: #4752d4; }
+
+        /* ── Insights row ── */
+        .insights-row { display: grid; grid-template-columns: 1fr 300px; gap: 16px; }
+
+        /* ── Panel ── */
+        .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+        .panel-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 13px 18px; border-bottom: 1px solid var(--border);
+        }
+        .panel-title { font-size: 14px; font-weight: 700; color: var(--text-bright); }
+        .panel-badge {
+            font-size: 11px; color: var(--text-muted); background: var(--surface-hover);
+            padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border);
+        }
+        .panel-body { padding: 16px 18px; }
+
+        /* ── Conclusão ── */
+        .conclusao-block {
+            background: linear-gradient(135deg, #1a1e3a, #1d2035);
+            border: 1px solid rgba(88,101,242,.3);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+        }
+        .conclusao-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .conclusao-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--blue); }
+        .conclusao-text  { font-size: 13px; color: #c0c8f0; line-height: 1.8; white-space: pre-line; }
+
+        .copy-report-btn {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: var(--radius-sm);
+            background: var(--blue-soft); border: 1px solid rgba(88,101,242,.3);
+            color: #93a8f4; font-size: 11px; font-weight: 600;
+            cursor: pointer; transition: all .15s;
+        }
+        .copy-report-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+        /* ── Admin Feedback ── */
+        .feedback-list { display: flex; flex-direction: column; gap: 10px; }
+        .feedback-card {
+            border: 1px solid var(--border); border-radius: var(--radius-sm);
+            background: var(--surface-alt); overflow: hidden;
+        }
+        .feedback-card-head {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 14px; border-bottom: 1px solid var(--border-soft);
+        }
+        .feedback-rank {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--blue); color: #fff;
+            font-size: 12px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .feedback-titulo { font-size: 14px; font-weight: 700; color: var(--text-bright); flex: 1; }
+        .priority { padding: 2px 9px; border-radius: 999px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
+        .priority-alta  { background: rgba(237,66,69,.18);  color: var(--red-bright);  border: 1px solid rgba(237,66,69,.28); }
+        .priority-media { background: rgba(250,166,26,.15); color: var(--gold);         border: 1px solid rgba(250,166,26,.28); }
+        .priority-baixa { background: rgba(59,165,92,.15);  color: var(--green-bright); border: 1px solid rgba(59,165,92,.25); }
+        .feedback-card-body { padding: 12px 14px; }
+        .feedback-meta { display: flex; gap: 14px; margin-bottom: 9px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; align-items: center; }
+        .feedback-supports { color: var(--green-bright); font-weight: 700; }
+        .feedback-vote-bar-track {
+            flex: 0 0 90px; height: 6px; border-radius: 99px;
+            background: var(--bg); border: 1px solid var(--border-soft);
+            overflow: hidden; display: flex;
+        }
+        .feedback-vote-bar-like    { background: var(--green); height: 100%; }
+        .feedback-vote-bar-dislike { background: var(--red);   height: 100%; }
+        .feedback-resumo { font-size: 13px; color: var(--text); line-height: 1.55; }
+
+        /* ── Topic cards ── */
+        .topic-grid { display: flex; flex-direction: column; gap: 12px; }
+        .topic-card { background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+        .topic-card-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border-soft); }
+        .topic-count-badge { background: var(--blue-soft); color: var(--blue); border: 1px solid rgba(88,101,242,.25); border-radius: 999px; font-size: 10px; font-weight: 700; padding: 2px 8px; flex-shrink: 0; }
+        .topic-name { font-size: 13px; font-weight: 700; color: var(--text-bright); flex: 1; }
+        .topic-cat-badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(250,166,26,.2); flex-shrink: 0; }
+        .topic-card-body { padding: 10px 14px; }
+        .topic-vote-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .topic-vote-num { font-size: 12px; font-weight: 700; white-space: nowrap; }
+        .tv-likes    { color: var(--green-bright); }
+        .tv-dislikes { color: var(--red-bright); }
+        .topic-bar-track { flex: 1; height: 8px; border-radius: 99px; background: var(--bg); border: 1px solid var(--border-soft); overflow: hidden; display: flex; }
+        .topic-bar-like    { background: var(--green); height: 100%; min-width: 0; }
+        .topic-bar-dislike { background: var(--red);   height: 100%; min-width: 0; }
+        .topic-score { font-size: 11px; color: var(--text-muted); padding: 2px 8px; background: var(--surface-hover); border-radius: 999px; border: 1px solid var(--border-soft); white-space: nowrap; flex-shrink: 0; }
+        .topic-examples { display: flex; flex-direction: column; gap: 8px; }
+        .topic-example { background: var(--bg); border: 1px solid var(--border-soft); border-radius: var(--radius-sm); padding: 10px 12px; }
+        .topic-example-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+        .topic-example-author { font-size: 12px; font-weight: 700; color: var(--text-bright); }
+        .topic-example-date   { font-size: 11px; color: var(--text-muted); }
+        .topic-example-votes  { display: flex; gap: 8px; margin-left: auto; font-size: 11px; font-weight: 700; }
+        .topic-example-content { font-size: 12px; color: var(--text); line-height: 1.5; }
+        .topic-example-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 11px; font-weight: 600; color: var(--blue); text-decoration: none; }
+        .topic-example-link:hover { color: #8b9cf4; }
+
+        /* ── Vote chart ── */
+        .chart-body { padding: 16px 18px; }
+        .bar-track { height: 30px; border-radius: 8px; overflow: hidden; display: flex; background: var(--bg); border: 1px solid var(--border); }
+        .bar-like    { background: linear-gradient(90deg, #1a4a2e, var(--green)); }
+        .bar-dislike { background: linear-gradient(90deg, #5a1010, var(--red)); }
+        .chart-legend { display: flex; justify-content: space-between; margin-top: 12px; font-size: 13px; font-weight: 700; }
+
+        /* ── Old themes (summary mode) ── */
+        .theme-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .theme { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; }
+        .theme-name { font-weight: 700; color: var(--text-bright); font-size: 13px; }
+        .theme-desc { font-size: 13px; color: var(--text); margin-top: 3px; }
+        .theme-stats { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+        .actions-list { margin: 12px 0 0; padding-left: 18px; }
+        .actions-list li { margin-top: 6px; font-size: 13px; }
+
+        /* ── Main grid ── */
+        .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+        .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 68px; }
+
+        /* ── Rank list ── */
+        .rank-item { padding: 11px 16px; border-top: 1px solid var(--border-soft); transition: background .1s; }
+        .rank-item:first-child { border-top: 0; }
+        .rank-item:hover { background: var(--surface-hover); }
+        .rank-item.positive { border-left: 3px solid var(--green); }
+        .rank-item.negative { border-left: 3px solid var(--red); }
+        .rank-num    { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        .rank-author { font-weight: 600; color: var(--text-bright); font-size: 13px; }
+        .rank-date   { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+        .rank-content { font-size: 12px; margin-top: 7px; color: var(--text); line-height: 1.45; }
+
+        /* ── Votes ── */
+        .votes { display: flex; gap: 10px; margin-top: 8px; font-size: 12px; font-weight: 700; flex-wrap: wrap; align-items: center; }
+        .v-likes     { color: var(--green-bright); }
+        .v-dislikes  { color: var(--red-bright); }
+        .v-score-pos { color: var(--green-bright); }
+        .v-score-neg { color: var(--red-bright); }
+        .v-score-neu { color: var(--text-muted); }
+
+        /* ── Search bar ── */
+        .search-row {
+            padding: 10px 18px; border-bottom: 1px solid var(--border);
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .search-input {
+            width: 100%; padding: 8px 12px;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); color: var(--text-bright);
+            font-size: 13px; outline: none;
+            transition: border-color .15s;
+        }
+        .search-input::placeholder { color: var(--text-muted); }
+        .search-input:focus { border-color: var(--blue); }
+
+        /* ── Category filter chips ── */
+        .cat-filter-bar {
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .cat-chip {
+            padding: 3px 10px; border-radius: 999px;
+            font-size: 11px; font-weight: 600; cursor: pointer;
+            background: var(--surface-hover); color: var(--text-muted);
+            border: 1px solid var(--border); transition: all .12s;
+            user-select: none;
+        }
+        .cat-chip:hover  { color: var(--text-bright); border-color: var(--blue); }
+        .cat-chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+        /* ── Sort bar ── */
+        .sort-bar { display: flex; gap: 4px; }
+        .sort-btn { padding: 4px 10px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; text-decoration: none; color: var(--text-muted); border: 1px solid transparent; }
+        .sort-btn:hover  { color: var(--text); background: var(--surface-hover); }
+        .sort-btn.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+
+        /* ── Suggestions ── */
+        .suggestion { padding: 15px 18px; border-top: 1px solid var(--border-soft); transition: background .1s; }
+        .suggestion:first-of-type { border-top: 0; }
+        .suggestion:hover { background: rgba(255,255,255,.018); }
+        .suggestion.hidden-suggestion { display: none; }
+        .suggestion-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+        .suggestion-author   { font-weight: 700; color: var(--text-bright); font-size: 14px; }
+        .suggestion-username { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .suggestion-content  { margin-top: 10px; font-size: 13px; color: var(--text); line-height: 1.6; white-space: pre-wrap; }
+
+        /* ── Expand button ── */
+        .expand-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            margin-top: 6px; padding: 3px 9px;
+            background: var(--surface-hover); border: 1px solid var(--border);
+            border-radius: 999px; color: var(--blue);
+            font-size: 11px; font-weight: 600; cursor: pointer;
+            transition: all .12s;
+        }
+        .expand-btn:hover { background: var(--blue-soft); border-color: var(--blue); }
+
+        /* ── Tags ── */
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+        .tag { padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+        .tag.topic    { background: var(--surface-hover); color: var(--text); }
+        .tag.category { background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(250,166,26,.22); cursor: pointer; transition: opacity .12s; }
+        .tag.category:hover { opacity: .8; }
+        .tag.critico,
+        .tag.crítico  { background: var(--red-soft); color: var(--red-bright); border: 1px solid rgba(237,66,69,.2); }
+        .tag.positivo { background: var(--green-soft); color: var(--green-bright); border: 1px solid rgba(59,165,92,.2); }
+        .tag.neutro   { background: var(--surface-hover); color: var(--text-muted); }
+
+        .jump-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; }
+        .jump-link:hover { color: #8b9cf4; }
+        .attach-row { margin-top: 8px; font-size: 12px; color: var(--text-muted); }
+        .attach-row a { color: var(--blue); text-decoration: none; }
+
+        /* ── Empty / no results ── */
+        .empty-notice { padding: 28px; text-align: center; color: var(--text-muted); font-size: 13px; }
+        #no-results { display: none; padding: 32px; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+        .welcome { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 56px 24px; text-align: center; }
+        .welcome h2 { font-size: 22px; color: var(--text-bright); margin-bottom: 10px; }
+        .welcome p  { color: var(--text-muted); font-size: 14px; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1100px) { .insights-row { grid-template-columns: 1fr; } }
+        @media (max-width: 900px)  { .main-grid { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2,1fr); } .rail { position: static; } .suggestion-head { flex-direction: column; } }
+        @media (max-width: 600px)  { .header { padding: 12px 16px; } .page { padding: 14px 16px; } .metrics { grid-template-columns: 1fr; } .ai-cta { flex-direction: column; align-items: flex-start; } }
+    </style>
+</head>
+<body>
+
+<!-- ══ Loading overlay ══ -->
+<div id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-label" id="loading-label">Carregando...</div>
+</div>
+
+<!-- ══ Header ══ -->
+<header class="header">
+    <div class="header-brand">
+        <img src="/logo" alt="The Classic Games" class="header-logo">
+        <div>
+            <div class="header-title">The Classic PW <span class="header-title-sub">— Alvorecer Sombrio</span></div>
+            <div class="header-sub">
+                Dashboard de Sugestoes · Canal {{ payload.channel_id }}
+                {% if payload.period %}· {{ payload.period.label }} · {{ payload.period.raw_messages }} msgs lidas{% endif %}
+            </div>
+        </div>
+    </div>
+    <nav class="header-controls">
+        {% for key, period in periods.items() %}
+            <a class="btn nav-load {% if period_key == key %}active{% endif %}"
+               data-label="Buscando sugestoes do periodo..."
+               href="?period={{ key }}&sort={{ sort_by }}&refresh=1">{{ period[0] }}</a>
+        {% endfor %}
+        {% if period_key %}
+            <div class="btn-sep"></div>
+            <a class="btn nav-load {% if topics %}active{% endif %}"
+               data-label="Classificando topicos com IA..."
+               href="?period={{ period_key }}&sort={{ sort_by }}&topics=1">🏷 Topicos</a>
+            <a class="btn nav-load {% if feedback %}active{% endif %}"
+               data-label="Gerando feedback com IA..."
+               href="?period={{ period_key }}&sort={{ sort_by }}&feedback=1">📋 Feedback Adm</a>
+        {% endif %}
+    </nav>
+</header>
+
+<!-- ══ Page ══ -->
+<main class="page">
+
+    {% if not period_key and not error_message %}
+        <div class="welcome">
+            <h2>Bem-vindo ao Dashboard</h2>
+            <p>Selecione um periodo acima para carregar as sugestoes do servidor.</p>
+        </div>
+    {% endif %}
+
+    {% if error_message %}  <div class="alert alert-error">{{ error_message }}</div>{% endif %}
+    {% if summary_error %}  <div class="alert alert-warn">{{ summary_error }}</div>{% endif %}
+
+    <!-- Métricas -->
+    <section class="metrics">
+        <div class="metric metric-total">
+            <div class="metric-label">Sugestoes</div>
+            <div class="metric-value">{{ payload.summary.total_messages }}</div>
+        </div>
+        <div class="metric metric-likes">
+            <div class="metric-label">Total Likes</div>
+            <div class="metric-value green">{{ payload.summary.total_likes }}</div>
+        </div>
+        <div class="metric metric-dislikes">
+            <div class="metric-label">Total Dislikes</div>
+            <div class="metric-value red">{{ payload.summary.total_dislikes }}</div>
+        </div>
+        <div class="metric metric-limit">
+            <div class="metric-label">Limite busca</div>
+            <div class="metric-value">{{ payload.period.max_messages if payload.period else "-" }}</div>
+        </div>
+    </section>
+
+    {% if period_key %}
+
+    <!-- AI CTA (só quando nenhuma análise está ativa) -->
+    {% if not llm_summary.available %}
+    <section class="ai-cta">
+        <div class="ai-cta-left">
+            <div class="ai-cta-icon">✨</div>
+            <div>
+                <div class="ai-cta-title">Analise com IA disponivel</div>
+                <div class="ai-cta-sub">
+                    Gere insights automaticos sobre as {{ payload.summary.total_messages }} sugestoes do periodo — classificadas por tema ou com feedback direto para o adm.
+                </div>
+            </div>
+        </div>
+        <div class="ai-cta-btns">
+            <a href="?period={{ period_key }}&sort={{ sort_by }}&topics=1"
+               class="ai-cta-btn ai-cta-btn-outline nav-load" data-label="Classificando topicos com IA...">🏷 Ver topicos</a>
+            <a href="?period={{ period_key }}&sort={{ sort_by }}&feedback=1"
+               class="ai-cta-btn ai-cta-btn-fill nav-load" data-label="Gerando feedback com IA...">📋 Feedback Adm</a>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Insights -->
+    <section class="insights-row">
+
+        <!-- Painel LLM -->
+        <article class="panel">
+            <div class="panel-head">
+                <span class="panel-title">
+                    {% if llm_summary.mode == "topics" %}🏷 Topicos da comunidade
+                    {% elif llm_summary.mode == "feedback" %}📋 Feedback para o administrador
+                    {% else %}💡 Analise da comunidade
+                    {% endif %}
+                </span>
+                {% if llm_summary.available %}
+                    <span class="panel-badge">{{ llm_summary.analyzed_count }} sugestoes analisadas</span>
+                {% endif %}
+            </div>
+            <div class="panel-body">
+                {% if llm_summary.available %}
+
+                    {# ── Feedback Adm ── #}
+                    {% if llm_summary.mode == "feedback" %}
+                        {% if llm_summary.conclusao %}
+                            <div class="conclusao-block">
+                                <div class="conclusao-head">
+                                    <div class="conclusao-label">📊 Panorama consolidado</div>
+                                    <button class="copy-report-btn" onclick="copyReport()">📋 Copiar relatório</button>
+                                </div>
+                                <div class="conclusao-text">{{ llm_summary.conclusao }}</div>
+                            </div>
+                        {% endif %}
+
+                        <div class="feedback-list" style="margin-top:14px;">
+                            {% for item in llm_summary.feedback %}
+                                {% set total_v = (item.n_apoios | default(0)) + (item.n_contra | default(0)) %}
+                                {% set like_pct = (((item.n_apoios | default(0)) / total_v * 100) | round(0) | int) if total_v > 0 else 100 %}
+                                <div class="feedback-card">
+                                    <div class="feedback-card-head">
+                                        <div class="feedback-rank">{{ item.rank }}</div>
+                                        <div class="feedback-titulo">{{ item.titulo }}</div>
+                                        <span class="priority priority-{{ (item.prioridade | default('media')) | lower }}">{{ item.prioridade | default('media') }}</span>
+                                    </div>
+                                    <div class="feedback-card-body">
+                                        <div class="feedback-meta">
+                                            <span class="feedback-supports">👍 {{ item.n_apoios }} apoios</span>
+                                            <div class="feedback-vote-bar-track">
+                                                <div class="feedback-vote-bar-like"    style="width:{{ like_pct }}%;"></div>
+                                                <div class="feedback-vote-bar-dislike" style="width:{{ 100 - like_pct }}%;"></div>
+                                            </div>
+                                            <span>{{ item.categoria | default('Geral') }}</span>
+                                        </div>
+                                        <div class="feedback-resumo">{{ item.resumo }}</div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="empty-notice">Nenhum feedback gerado.</div>
+                            {% endfor %}
+                        </div>
+
+                    {# ── Tópicos ── #}
+                    {% elif llm_summary.mode == "topics" %}
+                        {% if llm_summary.topic_summary %}
+                            <div class="topic-grid">
+                                {% for topic in llm_summary.topic_summary %}
+                                    {% set tv = topic.total_likes + topic.total_dislikes %}
+                                    {% set lp = (((topic.total_likes / tv) * 100) | round(0) | int) if tv > 0 else 0 %}
+                                    <div class="topic-card">
+                                        <div class="topic-card-head">
+                                            <span class="topic-count-badge">{{ topic.count }}x</span>
+                                            <span class="topic-name">{{ topic.topic }}</span>
+                                            <span class="topic-cat-badge">{{ topic.category }}</span>
+                                        </div>
+                                        <div class="topic-card-body">
+                                            <div class="topic-vote-row">
+                                                <span class="topic-vote-num tv-likes">👍 {{ topic.total_likes }}</span>
+                                                <div class="topic-bar-track">
+                                                    <div class="topic-bar-like"    style="width:{{ lp }}%;"></div>
+                                                    <div class="topic-bar-dislike" style="width:{{ 100 - lp }}%;"></div>
+                                                </div>
+                                                <span class="topic-vote-num tv-dislikes">{{ topic.total_dislikes }} 👎</span>
+                                                <span class="topic-score">score {{ topic.total_likes - topic.total_dislikes }}</span>
+                                            </div>
+                                            {% if topic.examples %}
+                                                <div class="topic-examples">
+                                                    {% for ex in topic.examples %}
+                                                        <div class="topic-example">
+                                                            <div class="topic-example-head">
+                                                                <span class="topic-example-author">{{ ex.author }}</span>
+                                                                <span class="topic-example-date">{{ ex.created_at_display }}</span>
+                                                                <div class="topic-example-votes">
+                                                                    <span class="v-likes">{{ ex.likes }} 👍</span>
+                                                                    <span class="v-dislikes">{{ ex.dislikes }} 👎</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="topic-example-content">{{ ex.content[:320] }}{% if ex.content|length > 320 %}…{% endif %}</div>
+                                                            {% if ex.jump_url %}<a class="topic-example-link" href="{{ ex.jump_url }}" target="_blank">↗ Ver no Discord</a>{% endif %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    {# ── Summary ── #}
+                    {% else %}
+                        {% if llm_summary.summary %}<p style="font-size:13px;line-height:1.6;margin-bottom:12px;">{{ llm_summary.summary }}</p>{% endif %}
+                        {% if llm_summary.themes %}
+                            <div class="theme-list">
+                                {% for theme in llm_summary.themes %}
+                                    <div class="theme">
+                                        <div class="theme-name">{{ theme.name }}</div>
+                                        <div class="theme-desc">{{ theme.description }}</div>
+                                        <div class="theme-stats">{{ theme.suggestion_count }} sugestoes · {{ theme.total_likes }} likes · {{ theme.total_dislikes }} dislikes</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if llm_summary.action_items %}
+                            <ul class="actions-list">{% for a in llm_summary.action_items %}<li>{{ a }}</li>{% endfor %}</ul>
+                        {% endif %}
+                    {% endif %}
+
+                {% else %}
+                    <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">
+                        Selecione uma das opcoes de analise acima para gerar insights sobre as sugestoes do periodo.
+                    </p>
+                {% endif %}
+            </div>
+        </article>
+
+        <!-- Gráfico votos -->
+        <article class="panel">
+            <div class="panel-head"><span class="panel-title">Likes vs Dislikes</span></div>
+            <div class="chart-body">
+                <div class="bar-track">
+                    <div class="bar-like"    style="width:{{ payload.vote_chart.likes_pct }}%;"></div>
+                    <div class="bar-dislike" style="width:{{ payload.vote_chart.dislikes_pct }}%;"></div>
+                </div>
+                <div class="chart-legend">
+                    <span class="v-likes">{{ payload.vote_chart.likes }} likes ({{ payload.vote_chart.likes_pct }}%)</span>
+                    <span class="v-dislikes">{{ payload.vote_chart.dislikes }} dislikes ({{ payload.vote_chart.dislikes_pct }}%)</span>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Grid principal -->
+    <section class="main-grid">
+        <aside class="rail">
+            <section class="panel">
+                <div class="panel-head"><span class="panel-title">🏆 Top aprovadas</span></div>
+                <div>
+                    {% for sug in top_positive %}
+                        <article class="rank-item positive">
+                            <div class="rank-num">#{{ loop.index }}</div>
+                            <div class="rank-author">{{ sug.author }}</div>
+                            <div class="rank-date">{{ sug.created_at_display }}</div>
+                            <div class="rank-content">{{ sug.content[:220] }}{% if sug.content|length > 220 %}…{% endif %}</div>
+                            <div class="votes">
+                                <span class="v-likes">{{ sug.likes }} 👍</span>
+                                <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                                <span class="{% if sug.score > 0 %}v-score-pos{% elif sug.score < 0 %}v-score-neg{% else %}v-score-neu{% endif %}">Score {{ sug.score }}</span>
+                            </div>
+                        </article>
+                    {% else %}
+                        <div class="empty-notice">Nenhuma sugestao encontrada.</div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head"><span class="panel-title">🚫 Top rejeitadas</span></div>
+                <div>
+                    {% for sug in top_negative %}
+                        <article class="rank-item negative">
+                            <div class="rank-num">#{{ loop.index }}</div>
+                            <div class="rank-author">{{ sug.author }}</div>
+                            <div class="rank-date">{{ sug.created_at_display }}</div>
+                            <div class="rank-content">{{ sug.content[:220] }}{% if sug.content|length > 220 %}…{% endif %}</div>
+                            <div class="votes">
+                                <span class="v-likes">{{ sug.likes }} 👍</span>
+                                <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                                <span class="{% if sug.score > 0 %}v-score-pos{% elif sug.score < 0 %}v-score-neg{% else %}v-score-neu{% endif %}">Score {{ sug.score }}</span>
+                            </div>
+                        </article>
+                    {% else %}
+                        <div class="empty-notice">Nenhuma sugestao encontrada.</div>
+                    {% endfor %}
+                </div>
+            </section>
+        </aside>
+
+        <!-- Lista de sugestões -->
+        <section class="panel" id="suggestions-panel">
+            <div class="panel-head">
+                <span class="panel-title">Lista de sugestoes</span>
+                <div class="sort-bar">
+                    <a href="?period={{ period_key }}&sort=top{% if topics %}&topics=1{% elif feedback %}&feedback=1{% elif summarize %}&summarize=1{% endif %}"
+                       class="sort-btn {% if sort_by == 'top' %}active{% endif %}">Top</a>
+                    <a href="?period={{ period_key }}&sort=new{% if topics %}&topics=1{% elif feedback %}&feedback=1{% elif summarize %}&summarize=1{% endif %}"
+                       class="sort-btn {% if sort_by == 'new' %}active{% endif %}">Recentes</a>
+                    <a href="?period={{ period_key }}&sort=controversial{% if topics %}&topics=1{% elif feedback %}&feedback=1{% elif summarize %}&summarize=1{% endif %}"
+                       class="sort-btn {% if sort_by == 'controversial' %}active{% endif %}">Divididas</a>
+                </div>
+            </div>
+
+            <!-- Busca + filtro por categoria -->
+            <div class="search-row">
+                <input type="text" id="search-input" class="search-input"
+                       placeholder="🔍 Buscar nas sugestoes..."
+                       oninput="filterSuggestions()">
+                <div class="cat-filter-bar" id="cat-filter-bar"></div>
+            </div>
+
+            <div id="no-results">Nenhuma sugestao encontrada para essa busca.</div>
+
+            {% for sug in suggestions %}
+                {% set label = llm_summary.labels_by_id.get(sug.id) %}
+                <article class="suggestion"
+                         data-cat="{{ label.category if label else '' }}"
+                         data-content="{{ sug.content | lower }}">
+                    <div class="suggestion-head">
+                        <div>
+                            <div class="suggestion-author">{{ sug.author }}</div>
+                            <div class="suggestion-username">@{{ sug.author_username }} · {{ sug.created_at_display }}</div>
+                        </div>
+                        <div class="votes">
+                            <span class="v-likes">{{ sug.likes }} 👍</span>
+                            <span class="v-dislikes">{{ sug.dislikes }} 👎</span>
+                            <span class="{% if sug.score > 0 %}v-score-pos{% elif sug.score < 0 %}v-score-neg{% else %}v-score-neu{% endif %}">{{ sug.score }}</span>
+                        </div>
+                    </div>
+                    <div class="suggestion-content">
+                        {% if sug.content|length > 650 %}
+                            <span class="content-short">{{ sug.content[:650] }}</span>
+                            <span class="content-full" style="display:none">{{ sug.content[650:] }}</span>
+                            <br><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button>
+                        {% else %}
+                            {{ sug.content }}
+                        {% endif %}
+                    </div>
+                    {% if label %}
+                        <div class="tags">
+                            <span class="tag topic">{{ label.topic }}</span>
+                            <span class="tag category" onclick="filterByCategory('{{ label.category }}')">{{ label.category }}</span>
+                            <span class="tag {{ label.sentiment }}">{{ label.sentiment }}</span>
+                        </div>
+                    {% endif %}
+                    {% if sug.jump_url %}
+                        <a class="jump-link" href="{{ sug.jump_url }}" target="_blank">↗ Abrir no Discord</a>
+                    {% endif %}
+                    {% if sug.attachments %}
+                        <div class="attach-row">Anexos:
+                            {% for att in sug.attachments %}<a href="{{ att.url }}" target="_blank">{{ att.filename }}</a> {% endfor %}
+                        </div>
+                    {% endif %}
+                </article>
+            {% else %}
+                <div class="empty-notice">Nenhuma sugestao encontrada no periodo selecionado.</div>
+            {% endfor %}
+        </section>
+    </section>
+    {% endif %}
+
+</main>
+
+<script>
+    // ── Loading overlay ──
+    document.querySelectorAll('a.nav-load').forEach(link => {
+        link.addEventListener('click', () => {
+            const label = link.dataset.label || 'Carregando...';
+            document.getElementById('loading-label').textContent = label;
+            document.getElementById('loading-overlay').classList.add('visible');
+        });
+    });
+
+    // ── Expand / collapse suggestion ──
+    function toggleExpand(btn) {
+        const full  = btn.previousElementSibling;
+        const expanded = full.style.display !== 'none';
+        full.style.display = expanded ? 'none' : 'inline';
+        btn.textContent = expanded ? '▼ ver mais' : '▲ ver menos';
+    }
+
+    // ── Category filter chips (gerado dinamicamente) ──
+    (function buildCatChips() {
+        const arts = document.querySelectorAll('article.suggestion[data-cat]');
+        const cats = new Set();
+        arts.forEach(a => { if (a.dataset.cat) cats.add(a.dataset.cat); });
+        if (!cats.size) return;
+
+        const bar = document.getElementById('cat-filter-bar');
+        if (!bar) return;
+
+        const all = document.createElement('span');
+        all.className = 'cat-chip active';
+        all.textContent = 'Todos';
+        all.onclick = () => filterByCategory('');
+        bar.appendChild(all);
+
+        cats.forEach(cat => {
+            const chip = document.createElement('span');
+            chip.className = 'cat-chip';
+            chip.textContent = cat;
+            chip.onclick = () => filterByCategory(cat);
+            bar.appendChild(chip);
+        });
+    })();
+
+    function filterByCategory(cat) {
+        document.querySelectorAll('.cat-chip').forEach(c => {
+            c.classList.toggle('active', c.textContent === (cat || 'Todos'));
+        });
+        window._activeCat = cat;
+        filterSuggestions();
+    }
+
+    // ── Search + category filter ──
+    function filterSuggestions() {
+        const query  = (document.getElementById('search-input')?.value || '').toLowerCase();
+        const cat    = window._activeCat || '';
+        const arts   = document.querySelectorAll('article.suggestion');
+        let visible  = 0;
+
+        arts.forEach(art => {
+            const content  = (art.dataset.content || '');
+            const artCat   = (art.dataset.cat || '');
+            const matchQ   = !query || content.includes(query);
+            const matchCat = !cat   || artCat === cat;
+            const show = matchQ && matchCat;
+            art.classList.toggle('hidden-suggestion', !show);
+            if (show) visible++;
+        });
+
+        const noResults = document.getElementById('no-results');
+        if (noResults) noResults.style.display = visible === 0 && arts.length > 0 ? 'block' : 'none';
+    }
+
+    // ── Copiar relatório ──
+    function copyReport() {
+        const conclusao = document.querySelector('.conclusao-text')?.innerText?.trim() || '';
+        const cards = [...document.querySelectorAll('.feedback-card')].map(card => {
+            const rank      = card.querySelector('.feedback-rank')?.innerText || '';
+            const titulo    = card.querySelector('.feedback-titulo')?.innerText || '';
+            const priority  = card.querySelector('.priority')?.innerText || '';
+            const supports  = card.querySelector('.feedback-supports')?.innerText || '';
+            const spans     = [...card.querySelectorAll('.feedback-meta span')];
+            const categoria = spans.at(-1)?.innerText || '';
+            const resumo    = card.querySelector('.feedback-resumo')?.innerText || '';
+            return `#${rank} [${priority.toUpperCase()}] ${titulo}\n${supports} · ${categoria}\n${resumo}`;
+        }).join('\n\n');
+
+        const sep  = '─'.repeat(40);
+        const text = `📊 PANORAMA CONSOLIDADO\n${sep}\n${conclusao}\n\n📋 TOP SUGESTÕES\n${sep}\n${cards}`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.querySelector('.copy-report-btn');
+            btn.textContent = '✅ Copiado!';
+            setTimeout(() => { btn.textContent = '📋 Copiar relatório'; }, 2500);
+        }).catch(() => {
+            alert('Não foi possível copiar. Tente manualmente.');
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Classic PW — KDA Report {{ generated_at.strftime('%d/%m/%Y') }}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.period-nav {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 28px; display: flex; gap: 2px;
+}
+.nav-sep { width: 1px; background: var(--border); margin: 6px 6px; flex-shrink: 0; }
+.period-tab {
+    padding: 8px 15px; font-size: 13px; font-weight: 600;
+    color: var(--text-muted); text-decoration: none;
+    border-bottom: 2px solid transparent; transition: all .12s;
+}
+.period-tab:hover { color: var(--text-bright); }
+.period-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.period-tab-sug:hover { color: var(--blue); }
+</style>
+<style>
+:root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface-alt: #20232e;
+    --surface-hover: #252938;
+    --border: #2d3147;
+    --border-soft: #1e2130;
+    --text: #c8cfe0;
+    --text-bright: #edf0fa;
+    --text-muted: #6b7494;
+    --blue: #5865f2;
+    --blue-soft: #1a1e3a;
+    --green: #3ba55c;
+    --green-bright: #4ade80;
+    --green-soft: #0d2218;
+    --red: #ed4245;
+    --red-bright: #f87171;
+    --red-soft: #2d0f10;
+    --gold: #faa61a;
+    --gold-soft: #2a1e00;
+    --purple: #a371f7;
+    --purple-soft: #1e1433;
+    --teal: #26c6da;
+    --teal-soft: #0a2229;
+    --radius: 10px;
+    --radius-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+.header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #12141f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 10;
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-logo { height: 32px; width: auto; flex-shrink: 0; }
+.header-title { font-size: 17px; font-weight: 700; color: var(--text-bright); }
+.header-sub { font-size: 13px; color: var(--text-muted); }
+.header-badges { display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+.badge {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 5px 11px;
+    font-size: 12px; font-weight: 600; color: var(--text-muted); white-space: nowrap;
+}
+.badge-blue  { background: var(--blue-soft);   border-color: rgba(88,101,242,.3); color: #93a8f4; }
+.badge-gold  { background: var(--gold-soft);   border-color: rgba(250,166,26,.3); color: var(--gold); }
+
+/* ── Content ── */
+.content {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 18px 28px 40px;
+    display: flex; flex-direction: column; gap: 14px;
+}
+
+/* ── Metric cards ── */
+.metrics-row { display: flex; gap: 9px; }
+.metric {
+    flex: 1;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 12px 16px;
+    position: relative; overflow: hidden;
+}
+.metric::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.metric-kills::before   { background: var(--gold); }
+.metric-players::before { background: var(--blue); }
+.metric-clans::before   { background: var(--purple); }
+.metric-best::before    { background: var(--green); }
+.metric-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.metric-value { font-size: 24px; font-weight: 700; color: var(--text-bright); }
+.metric-sub   { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Two-column layout ── */
+.two-col {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 14px;
+    align-items: start;
+}
+.col-left  { display: flex; flex-direction: column; gap: 14px; }
+.col-right { display: flex; flex-direction: column; gap: 14px; }
+
+/* ── Section title ── */
+.section-title {
+    font-size: 11px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .8px;
+    margin-bottom: 7px;
+}
+
+/* ── Sort controls ── */
+.sort-controls {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 8px; flex-wrap: wrap;
+}
+.sort-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+.sort-pill {
+    padding: 3px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    background: var(--surface-alt); border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer; transition: all .12s;
+}
+.sort-pill:hover { color: var(--text-bright); border-color: var(--blue); }
+.sort-pill.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* ── Tables ── */
+.table-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+}
+.table-scroll {
+    overflow-y: auto;
+    max-height: min(820px, 65vh);
+}
+table { width: 100%; border-collapse: collapse; }
+thead th {
+    padding: 8px 12px;
+    font-size: 11px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .5px;
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    position: sticky; top: 0; z-index: 1;
+}
+th[data-col] { cursor: pointer; user-select: none; }
+th[data-col]:hover { color: var(--text-bright); }
+th.sorted-asc::after  { content: ' \2191'; color: var(--blue); }
+th.sorted-desc::after { content: ' \2193'; color: var(--blue); }
+td {
+    padding: 7px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-soft);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--surface-hover); }
+.td-num  { text-align: right; font-variant-numeric: tabular-nums; }
+.td-rank { color: var(--text-muted); font-weight: 600; }
+.td-name { font-weight: 600; color: var(--text-bright); }
+.td-clan { color: var(--text-muted); font-size: 12px; }
+.td-k    { color: var(--green-bright); font-weight: 600; }
+.td-d    { color: var(--red-bright); font-weight: 600; }
+.td-kd   { font-weight: 700; }
+.kd-pos  { color: var(--green-bright); }
+.kd-neg  { color: var(--red-bright); }
+.kd-neu  { color: var(--text); }
+
+/* ── Chart card ── */
+.chart-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px 16px;
+}
+.chart-card canvas { max-height: 220px; }
+
+/* ── Highlights ── */
+.highlights-row { display: flex; gap: 10px; }
+.highlights-col {
+    flex: 1;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+}
+.highlights-col-header {
+    padding: 8px 13px;
+    font-size: 10px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .7px;
+    border-bottom: 1px solid var(--border);
+}
+.col-killers .highlights-col-header  { color: var(--gold);        background: linear-gradient(90deg, var(--gold-soft) 0%, transparent 80%); }
+.col-deaths .highlights-col-header   { color: var(--red-bright);  background: linear-gradient(90deg, var(--red-soft) 0%, transparent 80%); }
+.col-survivors .highlights-col-header{ color: var(--teal);        background: linear-gradient(90deg, var(--teal-soft) 0%, transparent 80%); }
+.hi-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 13px;
+    border-bottom: 1px solid var(--border-soft);
+}
+.hi-item:last-child { border-bottom: none; }
+.hi-rank { font-size: 12px; font-weight: 700; color: var(--text-muted); width: 18px; text-align: center; flex-shrink: 0; }
+.hi-rank.r1 { color: var(--gold); }
+.hi-rank.r2 { color: #b0b8c8; }
+.hi-rank.r3 { color: #a0764a; }
+.hi-info { flex: 1; min-width: 0; }
+.hi-name { font-weight: 600; color: var(--text-bright); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hi-clan { font-size: 10px; color: var(--text-muted); }
+.hi-stat { font-size: 15px; font-weight: 700; flex-shrink: 0; }
+.col-killers .hi-stat   { color: var(--green-bright); }
+.col-deaths .hi-stat    { color: var(--red-bright); }
+.col-survivors .hi-stat { color: var(--teal); }
+
+/* ── Confrontations ── */
+.confrontations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+}
+.confrontation-card {
+    background: var(--surface-alt); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 9px 12px;
+    display: flex; align-items: center; gap: 8px;
+}
+.cf-rank { font-size: 10px; font-weight: 700; color: var(--text-muted); width: 16px; flex-shrink: 0; }
+.cf-players { flex: 1; min-width: 0; display: flex; align-items: center; gap: 5px; }
+.cf-left, .cf-right { min-width: 0; flex: 1; }
+.cf-killer, .cf-victim { font-weight: 600; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-killer { color: var(--text-bright); }
+.cf-victim { color: var(--text); }
+.cf-killer-clan, .cf-victim-clan { font-size: 10px; color: var(--text-muted); white-space: nowrap; }
+.cf-arrow { color: var(--red-bright); font-size: 10px; flex-shrink: 0; opacity: .6; }
+.cf-count { font-size: 16px; font-weight: 700; color: var(--gold); flex-shrink: 0; min-width: 28px; text-align: right; }
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    font-size: 11px; color: var(--text-muted);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 960px) {
+    .two-col { grid-template-columns: 1fr; }
+    .table-scroll { max-height: none; }
+    .highlights-row { flex-direction: column; }
+    .confrontations-grid { grid-template-columns: 1fr 1fr; }
+    .metrics-row { flex-wrap: wrap; }
+    .metric { min-width: calc(50% - 5px); }
+}
+@media (max-width: 500px) {
+    .confrontations-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-brand">
+        {% if logo_data_url %}
+        <img class="header-logo" src="{{ logo_data_url }}" alt="The Classic PW">
+        {% endif %}
+        <div>
+            <div class="header-title">The Classic PW</div>
+            <div class="header-sub">KDA Report</div>
+        </div>
+    </div>
+    <div class="header-badges">
+        <span class="badge badge-blue">{{ generated_at.strftime('%d/%m/%Y %H:%M') }} BRT</span>
+        <span class="badge badge-gold">{{ total_kills }} kills</span>
+        <span class="badge">{{ total_players }} jogadores</span>
+        <span class="badge">{{ total_clans }} clans</span>
+    </div>
+</div>
+
+<!-- ══ Nav ══ -->
+<nav class="period-nav">
+    <a href="relatorio_7d.html"  class="period-tab period-tab-sug">Ultima semana (Sugestoes)</a>
+    <a href="relatorio_30d.html" class="period-tab period-tab-sug">Ultimos 30 dias (Sugestoes)</a>
+    {% if kda_reports %}
+        <div class="nav-sep"></div>
+        {% for kda in kda_reports %}
+            <a href="{{ kda.file }}" class="period-tab{% if kda.file == current_file %} active{% endif %}">⚔ {{ kda.label }}</a>
+        {% endfor %}
+    {% endif %}
+</nav>
+
+<div class="content">
+
+    <!-- Metric cards (full width) -->
+    <div class="metrics-row">
+        <div class="metric metric-kills">
+            <div class="metric-label">Total de Kills</div>
+            <div class="metric-value">{{ total_kills }}</div>
+            <div class="metric-sub">registradas no periodo</div>
+        </div>
+        <div class="metric metric-players">
+            <div class="metric-label">Jogadores</div>
+            <div class="metric-value">{{ total_players }}</div>
+            <div class="metric-sub">participaram</div>
+        </div>
+        <div class="metric metric-clans">
+            <div class="metric-label">Clans</div>
+            <div class="metric-value">{{ total_clans }}</div>
+            <div class="metric-sub">clans ativos</div>
+        </div>
+        <div class="metric metric-best">
+            <div class="metric-label">Melhor K/D</div>
+            {% if leaderboard %}
+            <div class="metric-value">{{ leaderboard[0].kd_ratio }}</div>
+            <div class="metric-sub">{{ leaderboard[0].name }} ({{ leaderboard[0].clan }})</div>
+            {% else %}
+            <div class="metric-value">—</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="two-col">
+
+        <!-- LEFT: Player ranking -->
+        <div class="col-left">
+            <div>
+                <div class="sort-controls">
+                    <span class="sort-label">Ordenar por</span>
+                    <button class="sort-pill active" onclick="playerSort(3,'desc',this)">⚔ Kills</button>
+                    <button class="sort-pill" onclick="playerSort(4,'desc',this)">↑ Mortes</button>
+                    <button class="sort-pill" onclick="playerSort(5,'desc',this)">K/D</button>
+                    <button class="sort-pill" onclick="playerSort(4,'asc',this)">🛡 Menos mortos</button>
+                </div>
+                <div class="table-wrap">
+                    <div class="table-scroll">
+                        <table id="player-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:36px">#</th>
+                                    <th>Jogador</th>
+                                    <th>Clan</th>
+                                    <th data-col="3" class="td-num">K</th>
+                                    <th data-col="4" class="td-num">D</th>
+                                    <th data-col="5" class="td-num">K/D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in leaderboard %}
+                            <tr>
+                                <td class="td-rank td-num">{{ loop.index }}</td>
+                                <td class="td-name">{{ p.name }}</td>
+                                <td class="td-clan">{{ p.clan }}</td>
+                                <td class="td-num td-k" data-val="{{ p.K }}">{{ p.K }}</td>
+                                <td class="td-num td-d" data-val="{{ p.D }}">{{ p.D }}</td>
+                                <td class="td-num td-kd {% if p.kd_ratio > 1 %}kd-pos{% elif p.kd_ratio < 1 %}kd-neg{% else %}kd-neu{% endif %}" data-val="{{ p.kd_ratio }}">{{ p.kd_ratio }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clan ranking (also left) -->
+            <div>
+                <div class="section-title">Ranking de Clans</div>
+                <div class="table-wrap">
+                    <table id="clan-table">
+                        <thead>
+                            <tr>
+                                <th style="width:36px">#</th>
+                                <th>Clan</th>
+                                <th data-col="2" class="td-num">K</th>
+                                <th data-col="3" class="td-num">D</th>
+                                <th data-col="4" class="td-num">K/D</th>
+                                <th data-col="5" class="td-num">Membros</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for c in clan_leaderboard %}
+                        <tr>
+                            <td class="td-rank td-num">{{ loop.index }}</td>
+                            <td class="td-name">{{ c.clan }}</td>
+                            <td class="td-num td-k" data-val="{{ c.K }}">{{ c.K }}</td>
+                            <td class="td-num td-d" data-val="{{ c.D }}">{{ c.D }}</td>
+                            <td class="td-num td-kd {% if c.kd_ratio > 1 %}kd-pos{% elif c.kd_ratio < 1 %}kd-neg{% else %}kd-neu{% endif %}" data-val="{{ c.kd_ratio }}">{{ c.kd_ratio }}</td>
+                            <td class="td-num" data-val="{{ c.member_count }}">{{ c.member_count }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Chart + highlights + confrontations -->
+        <div class="col-right">
+
+            <!-- Timeline chart -->
+            {% if timeline_chart_json != '{"labels": [], "datasets": []}' %}
+            <div class="chart-card">
+                <div class="section-title" style="margin-bottom:10px">Kills ao longo do tempo (por clã · {{ bucket_minutes }} min)</div>
+                <canvas id="timeline-chart"></canvas>
+            </div>
+            {% endif %}
+
+            <!-- Highlights: killers | deaths | survivors -->
+            <div class="highlights-row">
+                <div class="highlights-col col-killers">
+                    <div class="highlights-col-header">Top Killers</div>
+                    {% for p in top_killers %}
+                    <div class="hi-item">
+                        <span class="hi-rank{% if loop.index == 1 %} r1{% elif loop.index == 2 %} r2{% elif loop.index == 3 %} r3{% endif %}">{{ loop.index }}</span>
+                        <div class="hi-info">
+                            <div class="hi-name">{{ p.name }}</div>
+                            <div class="hi-clan">{{ p.clan }}</div>
+                        </div>
+                        <span class="hi-stat">{{ p.K }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="highlights-col col-deaths">
+                    <div class="highlights-col-header">Mais Mortos</div>
+                    {% for p in top_deaths %}
+                    <div class="hi-item">
+                        <span class="hi-rank{% if loop.index == 1 %} r1{% elif loop.index == 2 %} r2{% elif loop.index == 3 %} r3{% endif %}">{{ loop.index }}</span>
+                        <div class="hi-info">
+                            <div class="hi-name">{{ p.name }}</div>
+                            <div class="hi-clan">{{ p.clan }}</div>
+                        </div>
+                        <span class="hi-stat">{{ p.D }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="highlights-col col-survivors">
+                    <div class="highlights-col-header">Menos Mortos</div>
+                    {% for p in top_survivors[:5] %}
+                    <div class="hi-item">
+                        <span class="hi-rank{% if loop.index == 1 %} r1{% elif loop.index == 2 %} r2{% elif loop.index == 3 %} r3{% endif %}">{{ loop.index }}</span>
+                        <div class="hi-info">
+                            <div class="hi-name">{{ p.name }}</div>
+                            <div class="hi-clan">{{ p.clan }}</div>
+                        </div>
+                        <span class="hi-stat">{{ p.D }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Top confrontations -->
+            {% if top_confrontations %}
+            <div>
+                <div class="section-title">Maiores Confrontos</div>
+                <div class="confrontations-grid">
+                {% for cf in top_confrontations %}
+                <div class="confrontation-card">
+                    <span class="cf-rank">{{ loop.index }}</span>
+                    <div class="cf-players">
+                        <div class="cf-left">
+                            <div class="cf-killer">{{ cf.killer }}</div>
+                            <div class="cf-killer-clan">{{ cf.killer_clan }}</div>
+                        </div>
+                        <span class="cf-arrow">&#9654;</span>
+                        <div class="cf-right">
+                            <div class="cf-victim">{{ cf.victim }}</div>
+                            <div class="cf-victim-clan">{{ cf.victim_clan }}</div>
+                        </div>
+                    </div>
+                    <span class="cf-count">{{ cf.count }}x</span>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+        <!-- /col-right -->
+
+    </div>
+    <!-- /two-col -->
+
+    <div class="footer">
+        Gerado em {{ generated_at.strftime('%d/%m/%Y %H:%M') }} BRT &middot; The Classic PW
+        &nbsp;&middot;&nbsp; Canal {{ channel_id }}
+        &nbsp;&middot;&nbsp; IDs {{ start_id }} &rarr; {{ stop_id }}
+    </div>
+
+</div>
+
+<script>
+(function () {
+    // ── Timeline chart ──
+    var timelineEl = document.getElementById('timeline-chart');
+    if (timelineEl) {
+        var chartData = {{ timeline_chart_json | safe }};
+        new Chart(timelineEl, {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        labels: { color: '#c8cfe0', font: { size: 11 }, boxWidth: 10 }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1a1d27',
+                        borderColor: '#2d3147',
+                        borderWidth: 1,
+                        titleColor: '#edf0fa',
+                        bodyColor: '#c8cfe0',
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#6b7494', maxRotation: 45, font: { size: 10 } },
+                        grid: { color: '#1e2130' }
+                    },
+                    y: {
+                        ticks: { color: '#6b7494', font: { size: 10 } },
+                        grid: { color: '#1e2130' },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // ── Sortable tables ──
+    function applySort(tableId, colIdx, dir) {
+        var table = document.getElementById(tableId);
+        if (!table) return;
+        table.querySelectorAll('th').forEach(function (t) {
+            t.classList.remove('sorted-asc', 'sorted-desc');
+        });
+        var th = table.querySelector('th[data-col="' + colIdx + '"]');
+        if (th) th.classList.add('sorted-' + dir);
+
+        var tbody = table.querySelector('tbody');
+        var rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort(function (a, b) {
+            var aRaw = a.cells[colIdx].dataset.val;
+            var bRaw = b.cells[colIdx].dataset.val;
+            var aNum = parseFloat(aRaw);
+            var bNum = parseFloat(bRaw);
+            var cmp = (!isNaN(aNum) && !isNaN(bNum))
+                ? aNum - bNum
+                : String(aRaw).localeCompare(String(bRaw));
+            return dir === 'asc' ? cmp : -cmp;
+        });
+        rows.forEach(function (row, i) {
+            tbody.appendChild(row);
+            row.cells[0].textContent = i + 1;
+        });
+    }
+
+    // Botões de ordenação do ranking de jogadores
+    window.playerSort = function (colIdx, dir, btn) {
+        applySort('player-table', colIdx, dir);
+        document.querySelectorAll('.sort-pill').forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+    };
+
+    // Clique nos cabeçalhos da tabela de jogadores
+    var sortState = {};
+    function bindHeaderSort(tableId) {
+        var table = document.getElementById(tableId);
+        if (!table) return;
+        table.querySelectorAll('th[data-col]').forEach(function (th) {
+            th.addEventListener('click', function () {
+                var colIdx = parseInt(th.dataset.col, 10);
+                var key = tableId + ':' + colIdx;
+                var dir = sortState[key] === 'desc' ? 'asc' : 'desc';
+                sortState[key] = dir;
+                applySort(tableId, colIdx, dir);
+                if (tableId === 'player-table') {
+                    document.querySelectorAll('.sort-pill').forEach(function (p) { p.classList.remove('active'); });
+                }
+            });
+        });
+    }
+
+    bindHeaderSort('player-table');
+    bindHeaderSort('clan-table');
+
+    // Default: ordenar por kills desc
+    applySort('player-table', 3, 'desc');
+}());
+</script>
+</body>
+</html>
