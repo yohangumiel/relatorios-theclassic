@@ -216,7 +216,7 @@ def main() -> None:
         errors = []
         for period_key in periods_to_run:
             output_path = Path(f"relatorio_{period_key}.html")
-            print(f"  ── {period_key} ──────────────────────────")
+            print(f"  -- {period_key} --------------------------")
             try:
                 generate_one(
                     period_key=period_key,

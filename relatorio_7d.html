@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Classic PW - Alvorecer Sombrio | Dashboard 06/05/2026</title>
+    <title>The Classic PW - Alvorecer Sombrio | Dashboard 07/05/2026</title>
     <style>
         :root {
             --bg: #0f1117;
@@ -70,6 +70,7 @@
             background: var(--surface); border-bottom: 1px solid var(--border);
             padding: 0 22px; display: flex; gap: 2px; flex-shrink: 0;
         }
+        .nav-sep { width: 1px; background: var(--border); margin: 6px 6px; flex-shrink: 0; }
         .period-tab {
             padding: 8px 15px; font-size: 13px; font-weight: 600;
             color: var(--text-muted); text-decoration: none;
@@ -77,6 +78,9 @@
         }
         .period-tab:hover { color: var(--text-bright); }
         .period-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+        .period-tab-kda { color: var(--gold-text, #c8a84b); }
+        .period-tab-kda:hover { color: var(--gold); }
+        :root { --gold-text: #c8a84b; }
 
         /* ── Wrapper ── */
         .dash-wrapper {
@@ -336,21 +340,23 @@
         <div class="header-title">The Classic PW <span class="header-title-sub">— Alvorecer Sombrio</span></div>
     </div>
     <div class="header-badges">
-        <div class="badge badge-blue">📅 Ultima semana</div>
-        <div class="badge"><div class="update-dot"></div>Atualizado em 06/05/2026 às 00:31 UTC</div>
+        <div class="badge badge-blue">📅 Ultima semana (Sugestoes)</div>
+        <div class="badge"><div class="update-dot"></div>Atualizado em 07/05/2026 às 14:20 UTC</div>
     </div>
 </header>
 
 <!-- ══ Period nav ══ -->
 <nav class="period-nav">
     
-        <a href="relatorio_7d.html" class="period-tab active">Ultima semana</a>
+        <a href="relatorio_7d.html" class="period-tab active">Ultima semana (Sugestoes)</a>
     
-        <a href="relatorio_30d.html" class="period-tab">Ultimos 30 dias</a>
+        <a href="relatorio_30d.html" class="period-tab">Ultimos 30 dias (Sugestoes)</a>
     
-        <a href="relatorio_90d.html" class="period-tab">Ultimos 3 meses</a>
     
-        <a href="relatorio_180d.html" class="period-tab">Ultimos 6 meses</a>
+        <div class="nav-sep"></div>
+        
+            <a href="guerra_07-05.html" class="period-tab period-tab-kda">⚔ KDA 07/05</a>
+        
     
 </nav>
 
@@ -361,19 +367,19 @@
     <div class="metrics-row">
         <div class="metric metric-total">
             <div class="metric-label">Sugestões</div>
-            <div class="metric-value">25</div>
+            <div class="metric-value">33</div>
         </div>
         <div class="metric metric-likes">
             <div class="metric-label">Total Likes</div>
-            <div class="metric-value green">180</div>
+            <div class="metric-value green">242</div>
         </div>
         <div class="metric metric-dislikes">
             <div class="metric-label">Total Dislikes</div>
-            <div class="metric-value red">121</div>
+            <div class="metric-value red">142</div>
         </div>
         <div class="metric metric-limit">
             <div class="metric-label">Msgs lidas</div>
-            <div class="metric-value">25</div>
+            <div class="metric-value">33</div>
         </div>
 
         <!-- Sentimento -->
@@ -392,7 +398,6 @@
             
         
             
-            
         
             
             
@@ -407,8 +412,6 @@
             
         
             
-            
-        
             
         
             
@@ -435,6 +438,17 @@
             
         
             
+        
+            
+            
+        
+            
+        
+            
+            
+        
+            
+        
             
         
             
@@ -447,6 +461,17 @@
             
         
             
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
             
         
             
@@ -458,14 +483,14 @@
             <div>
                 <div class="sentiment-label">Sentimento</div>
                 <div class="sentiment-bar">
-                    <div class="s-crit" style="width:52%;"></div>
-                    <div class="s-neu"  style="width:12%;"></div>
-                    <div class="s-pos"  style="width:36%;"></div>
+                    <div class="s-crit" style="width:42%;"></div>
+                    <div class="s-neu"  style="width:24%;"></div>
+                    <div class="s-pos"  style="width:33%;"></div>
                 </div>
                 <div class="sentiment-legend">
-                    <span style="color:var(--red-bright)">13 crítico</span>
-                    <span style="color:var(--text-muted)">3 neutro</span>
-                    <span style="color:var(--green-bright)">9 positivo</span>
+                    <span style="color:var(--red-bright)">14 crítico</span>
+                    <span style="color:var(--text-muted)">8 neutro</span>
+                    <span style="color:var(--green-bright)">11 positivo</span>
                 </div>
             </div>
         </div>
@@ -482,7 +507,7 @@
                 <div class="panel-head">
                     <span class="panel-title">📝 Sugestões</span>
                     <div class="panel-head-right">
-                        <span class="panel-badge">25</span>
+                        <span class="panel-badge">33</span>
                         <button class="col-toggle" onclick="toggleCol('col-sug', this)" title="Colapsar">‹</button>
                     </div>
                 </div>
@@ -518,7 +543,7 @@
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">reduzir custo troca de gênero skin</span>
+                                    <span class="tag topic">reduzir custo de troca de gênero de skin</span>
                                     <span class="tag category" onclick="filterByCategory('Monetizacao')">Monetizacao</span>
                                     <span class="tag critico">critico</span>
                                 </div>
@@ -531,23 +556,50 @@
                                  data-id="1499728941194285066"
                                  data-cat="Gameplay"
                                  data-content="aadicionar o reset de dgs para ficar melhor faarme solo"
-                                 data-score="12"
+                                 data-score="13"
                                  data-created="2026-05-01T11:07:23.197000+00:00"
-                                 data-likes="14"
+                                 data-likes="15"
                                  data-dislikes="2">
                             <div class="suggestion-author">veddita</div>
                             <div class="suggestion-username">@veddita · 01/05/2026 11:07</div>
                             <div class="suggestion-content">Aadicionar o reset de dgs para ficar melhor faarme solo</div>
                             <div class="votes">
-                                <span class="v-likes">14 👍</span>
+                                <span class="v-likes">15 👍</span>
                                 <span class="v-dislikes">2 👎</span>
+                                <span class="v-score-pos">13</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">adicionar reset de dungeons para farm solo</span>
+                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag positivo">positivo</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1501554205603659776"
+                                 data-cat="Gameplay"
+                                 data-content="melhorar drop da torre , 108 andares pra ganhar 120 selos e triste"
+                                 data-score="12"
+                                 data-created="2026-05-06T12:00:20.144000+00:00"
+                                 data-likes="13"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">dw___</div>
+                            <div class="suggestion-username">@dwrei7072 · 06/05/2026 12:00</div>
+                            <div class="suggestion-content">melhorar drop da torre , 108 andares pra ganhar 120 selos e triste</div>
+                            <div class="votes">
+                                <span class="v-likes">13 👍</span>
+                                <span class="v-dislikes">1 👎</span>
                                 <span class="v-score-pos">12</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">adicionar reset de dungeon para farm solo</span>
+                                    <span class="tag topic">melhorar drop da torre</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag positivo">positivo</span>
+                                    <span class="tag critico">critico</span>
                                 </div>
                             
                             
@@ -577,7 +629,7 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">reintroduzir selo Guan Yu e stack pedras</span>
+                                    <span class="tag topic">reintroduzir selo de guan yu e otimizar stack de pedras</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag positivo">positivo</span>
                                 </div>
@@ -604,7 +656,7 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">liberar transmutação GOW</span>
+                                    <span class="tag topic">liberar transmutação da gow</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag positivo">positivo</span>
                                 </div>
@@ -614,8 +666,35 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                     
                         
                         <article class="suggestion sug-score-pos"
+                                 data-id="1501666225904681122"
+                                 data-cat="Bugs"
+                                 data-content="fazer a atualização funcionar direito, torre não está como foi prometido. salas 45+ está do mesmo jeito de antes."
+                                 data-score="9"
+                                 data-created="2026-05-06T19:25:27.865000+00:00"
+                                 data-likes="10"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">MarlonZera</div>
+                            <div class="suggestion-username">@marlonsilva10 · 06/05/2026 19:25</div>
+                            <div class="suggestion-content"><span class="content-short">Fazer a atualização funcionar direito, Torre não está como foi prometido. salas 45+ está d…</span><span class="content-full" style="display:none">Fazer a atualização funcionar direito, Torre não está como foi prometido. salas 45+ está do mesmo jeito de antes.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">10 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-pos">9</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">corrigir atualização da torre</span>
+                                    <span class="tag category" onclick="filterByCategory('Bugs')">Bugs</span>
+                                    <span class="tag critico">critico</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
                                  data-id="1500453527670227186"
-                                 data-cat="Qualidade de vida"
+                                 data-cat="Geral"
                                  data-content="contratar alguem que de fato queria resolver os problemas colocados no ticket, nunca é resolvido os meus ticket"
                                  data-score="9"
                                  data-created="2026-05-03T11:06:38.075000+00:00"
@@ -631,9 +710,48 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">melhorar resolução de tickets</span>
-                                    <span class="tag category" onclick="filterByCategory('Qualidade de vida')">Qualidade de vida</span>
+                                    <span class="tag topic">melhorar atendimento de tickets</span>
+                                    <span class="tag category" onclick="filterByCategory('Geral')">Geral</span>
                                     <span class="tag critico">critico</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1501559873371115783"
+                                 data-cat="Eventos"
+                                 data-content="**10x10**
+
+alterar para 2h durante os finais de semana até não ter tw.
+
+*é o unico pvp organizado que está tendo no servidor*"
+                                 data-score="8"
+                                 data-created="2026-05-06T12:22:51.445000+00:00"
+                                 data-likes="9"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">Ghost</div>
+                            <div class="suggestion-username">@ghostt2515 · 06/05/2026 12:22</div>
+                            <div class="suggestion-content"><span class="content-short">**10x10**
+
+Alterar para 2h durante os finais de semana até não ter TW.
+
+*É o unico pvp org…</span><span class="content-full" style="display:none">**10x10**
+
+Alterar para 2h durante os finais de semana até não ter TW.
+
+*É o unico pvp organizado que está tendo no servidor*</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">9 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-pos">8</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">aumentar duração do 10x10 para 2h nos finais de semana</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
+                                    <span class="tag positivo">positivo</span>
                                 </div>
                             
                             
@@ -658,9 +776,9 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">limpar quests removidas dos chars</span>
+                                    <span class="tag topic">limpar quests removidas dos clãs</span>
                                     <span class="tag category" onclick="filterByCategory('Qualidade de vida')">Qualidade de vida</span>
-                                    <span class="tag positivo">positivo</span>
+                                    <span class="tag critico">critico</span>
                                 </div>
                             
                             
@@ -705,7 +823,7 @@ Só bloquear o uso de bot, contratar algum GM pra ficar in game fiscalizando qua
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">adicionar reset automático de dungeon e reduzir custo daimon</span>
+                                    <span class="tag topic">adicionar reset automático de dungeon pelo NPC</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag critico">critico</span>
                                 </div>
@@ -715,39 +833,8 @@ Só bloquear o uso de bot, contratar algum GM pra ficar in game fiscalizando qua
                     
                         
                         <article class="suggestion sug-score-pos"
-                                 data-id="1500526434119319562"
-                                 data-cat="Eventos"
-                                 data-content="&lt;@762113685111570492&gt; 
-
-aumentar o 10x10 para duas horas até ter tw"
-                                 data-score="6"
-                                 data-created="2026-05-03T15:56:20.327000+00:00"
-                                 data-likes="9"
-                                 data-dislikes="3">
-                            <div class="suggestion-author">Ghost</div>
-                            <div class="suggestion-username">@ghostt2515 · 03/05/2026 15:56</div>
-                            <div class="suggestion-content">&lt;@762113685111570492&gt; 
-
-Aumentar o 10x10 para duas horas até ter tw</div>
-                            <div class="votes">
-                                <span class="v-likes">9 👍</span>
-                                <span class="v-dislikes">3 👎</span>
-                                <span class="v-score-pos">6</span>
-                            </div>
-                            
-                                <div class="tags">
-                                    <span class="tag topic">aumentar duração 10x10 para 2 horas</span>
-                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
-                                    <span class="tag positivo">positivo</span>
-                                </div>
-                            
-                            
-                        </article>
-                    
-                        
-                        <article class="suggestion sug-score-pos"
                                  data-id="1499807686223593502"
-                                 data-cat="Gameplay"
+                                 data-cat="Eventos"
                                  data-content="passe da temporada só com itens presos, quero farmar sangue bárbaro sem ir bh"
                                  data-score="6"
                                  data-created="2026-05-01T16:20:17.475000+00:00"
@@ -763,8 +850,176 @@ Aumentar o 10x10 para duas horas até ter tw</div>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">criar passe temporada com itens presos</span>
+                                    <span class="tag topic">criar passe da temporada com itens presos</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
+                                    <span class="tag positivo">positivo</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1501817597715283980"
+                                 data-cat="Eventos"
+                                 data-content="voltar com a transmissão do evento de quarta-feira onde ambos os clãs se esforçam para colocar um log bacana, faz um evento muito bom de 3 horas e 20 minutos e ainda investe dinheiro do próprio bolso para recompensar seus players. o the classic precisa de visibilidade, voltem com transmissões na twitch."
+                                 data-score="6"
+                                 data-created="2026-05-07T05:26:57.717000+00:00"
+                                 data-likes="7"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">Tico[The]Badass</div>
+                            <div class="suggestion-username">@tico_o_banido · 07/05/2026 05:26</div>
+                            <div class="suggestion-content"><span class="content-short">Voltar com a transmissão do evento de quarta-feira onde ambos os clãs se esforçam para col…</span><span class="content-full" style="display:none">Voltar com a transmissão do evento de quarta-feira onde ambos os clãs se esforçam para colocar um log bacana, faz um evento muito bom de 3 horas e 20 minutos e ainda investe dinheiro do próprio bolso para recompensar seus players. O The Classic precisa de visibilidade, voltem com transmissões na Twitch.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">7 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-pos">6</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">voltar transmissão do evento de quarta-feira na Twitch</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
+                                    <span class="tag critico">critico</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1501678081574699099"
+                                 data-cat="Eventos"
+                                 data-content="dar mais atenção ao servidor com eventos e melhorias, que funcione, tá parecendo que essa versão tá abandonada, é atts que vem bugadas e não são resolvidas, poucos ou uase nenhum evento novo, premiações decepicionante nos eventos que tem, enquanto parece que no 1.2.6 tá tendo muita atenção para tudo. até nos tickets, lembra que ainda tem gente jogando nessa versão e curte ela."
+                                 data-score="6"
+                                 data-created="2026-05-06T20:12:34.477000+00:00"
+                                 data-likes="7"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">EdmoSJ</div>
+                            <div class="suggestion-username">@edmosj · 06/05/2026 20:12</div>
+                            <div class="suggestion-content"><span class="content-short">Dar mais atenção ao servidor com eventos e Melhorias, que funcione, tá parecendo que essa …</span><span class="content-full" style="display:none">Dar mais atenção ao servidor com eventos e Melhorias, que funcione, tá parecendo que essa versão tá abandonada, é atts que vem bugadas e não são resolvidas, poucos ou uase nenhum evento novo, premiações decepicionante nos eventos que tem, enquanto parece que no 1.2.6 tá tendo muita atenção para tudo. até nos tickets, lembra que ainda tem gente jogando nessa versão e curte ela.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">7 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-pos">6</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">dar mais atenção ao servidor com eventos e melhorias</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
+                                    <span class="tag critico">critico</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1501564217239797873"
+                                 data-cat="Gameplay"
+                                 data-content="a atualização do 1.2.6 foi mt top, parabéns. agr vc poderia dar uma moral aqui né brunao, la vc lançou diaria nova, evento que vai rolar pvp, passe desse evento. bem que poderia trazer essas coisas pra cá adequando as recompensas"
+                                 data-score="6"
+                                 data-created="2026-05-06T12:40:07.104000+00:00"
+                                 data-likes="7"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">Felps</div>
+                            <div class="suggestion-username">@ehofelps · 06/05/2026 12:40</div>
+                            <div class="suggestion-content"><span class="content-short">A atualização do 1.2.6 foi mt top, parabéns. Agr vc poderia dar uma moral aqui né brunao, …</span><span class="content-full" style="display:none">A atualização do 1.2.6 foi mt top, parabéns. Agr vc poderia dar uma moral aqui né brunao, la vc lançou diaria nova, evento que vai rolar pvp, passe desse evento. Bem que poderia trazer essas coisas pra cá adequando as recompensas</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">7 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-pos">6</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">trazer atualizações do 1.2.6 para o servidor</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag positivo">positivo</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1500337062975373413"
+                                 data-cat="Gameplay"
+                                 data-content="acho ideal manter em 3 contas por ip ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
+assim facilita runs em grupo sem impactar tanto a economia, evitando queda no preço dos itens r8 e dos respectivos budas das instâncias."
+                                 data-score="5"
+                                 data-created="2026-05-03T03:23:50.728000+00:00"
+                                 data-likes="11"
+                                 data-dislikes="6">
+                            <div class="suggestion-author">Yo</div>
+                            <div class="suggestion-username">@yogumiel · 03/05/2026 03:23</div>
+                            <div class="suggestion-content"><span class="content-short">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas …</span><span class="content-full" style="display:none">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
+Assim facilita runs em grupo sem impactar tanto a economia, evitando queda no preço dos itens R8 e dos respectivos budas das instâncias.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">11 👍</span>
+                                <span class="v-dislikes">6 👎</span>
+                                <span class="v-score-pos">5</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">manter 3 ou 4 contas por ip</span>
+                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag neutro">neutro</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1500526434119319562"
+                                 data-cat="Eventos"
+                                 data-content="&lt;@762113685111570492&gt; 
+
+aumentar o 10x10 para duas horas até ter tw"
+                                 data-score="5"
+                                 data-created="2026-05-03T15:56:20.327000+00:00"
+                                 data-likes="9"
+                                 data-dislikes="4">
+                            <div class="suggestion-author">Ghost</div>
+                            <div class="suggestion-username">@ghostt2515 · 03/05/2026 15:56</div>
+                            <div class="suggestion-content">&lt;@762113685111570492&gt; 
+
+Aumentar o 10x10 para duas horas até ter tw</div>
+                            <div class="votes">
+                                <span class="v-likes">9 👍</span>
+                                <span class="v-dislikes">4 👎</span>
+                                <span class="v-score-pos">5</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">aumentar duração do 10x10 para duas horas</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
+                                    <span class="tag positivo">positivo</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1499728271515058357"
+                                 data-cat="Eventos"
+                                 data-content="voltar com o sistema de passe da season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos."
+                                 data-score="5"
+                                 data-created="2026-05-01T11:04:43.533000+00:00"
+                                 data-likes="9"
+                                 data-dislikes="4">
+                            <div class="suggestion-author">EdmoSJ</div>
+                            <div class="suggestion-username">@edmosj · 01/05/2026 11:04</div>
+                            <div class="suggestion-content"><span class="content-short">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas pa…</span><span class="content-full" style="display:none">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">9 👍</span>
+                                <span class="v-dislikes">4 👎</span>
+                                <span class="v-score-pos">5</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">voltar sistema de passe da season</span>
+                                    <span class="tag category" onclick="filterByCategory('Eventos')">Eventos</span>
                                     <span class="tag positivo">positivo</span>
                                 </div>
                             
@@ -790,95 +1045,9 @@ Aumentar o 10x10 para duas horas até ter tw</div>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">unir servidores PRIDE e SAVIORS</span>
+                                    <span class="tag topic">unir PRIDE com SAVIORS via recuperação judicial</span>
                                     <span class="tag category" onclick="filterByCategory('Comunidade')">Comunidade</span>
-                                    <span class="tag critico">critico</span>
-                                </div>
-                            
-                            
-                        </article>
-                    
-                        
-                        <article class="suggestion sug-score-pos"
-                                 data-id="1500337062975373413"
-                                 data-cat="Gameplay"
-                                 data-content="acho ideal manter em 3 contas por ip ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
-assim facilita runs em grupo sem impactar tanto a economia, evitando queda no preço dos itens r8 e dos respectivos budas das instâncias."
-                                 data-score="4"
-                                 data-created="2026-05-03T03:23:50.728000+00:00"
-                                 data-likes="10"
-                                 data-dislikes="6">
-                            <div class="suggestion-author">Yo</div>
-                            <div class="suggestion-username">@yogumiel · 03/05/2026 03:23</div>
-                            <div class="suggestion-content"><span class="content-short">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas …</span><span class="content-full" style="display:none">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
-Assim facilita runs em grupo sem impactar tanto a economia, evitando queda no preço dos itens R8 e dos respectivos budas das instâncias.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
-                            <div class="votes">
-                                <span class="v-likes">10 👍</span>
-                                <span class="v-dislikes">6 👎</span>
-                                <span class="v-score-pos">4</span>
-                            </div>
-                            
-                                <div class="tags">
-                                    <span class="tag topic">manter 3 ou 4 contas por IP</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag neutro">neutro</span>
-                                </div>
-                            
-                            
-                        </article>
-                    
-                        
-                        <article class="suggestion sug-score-pos"
-                                 data-id="1499728271515058357"
-                                 data-cat="Gameplay"
-                                 data-content="voltar com o sistema de passe da season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos."
-                                 data-score="4"
-                                 data-created="2026-05-01T11:04:43.533000+00:00"
-                                 data-likes="8"
-                                 data-dislikes="4">
-                            <div class="suggestion-author">EdmoSJ</div>
-                            <div class="suggestion-username">@edmosj · 01/05/2026 11:04</div>
-                            <div class="suggestion-content"><span class="content-short">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas pa…</span><span class="content-full" style="display:none">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
-                            <div class="votes">
-                                <span class="v-likes">8 👍</span>
-                                <span class="v-dislikes">4 👎</span>
-                                <span class="v-score-pos">4</span>
-                            </div>
-                            
-                                <div class="tags">
-                                    <span class="tag topic">voltar sistema de passe da season</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag positivo">positivo</span>
-                                </div>
-                            
-                            
-                        </article>
-                    
-                        
-                        <article class="suggestion sug-score-pos"
-                                 data-id="1500626674428022815"
-                                 data-cat="Qualidade de vida"
-                                 data-content="colocar a consignação. facilitaria muito o player que busca comprar ou vender.
-manter esse monte de lojinhas só para fingir um grande movimento no servidor, acaba que só atrapalha o comércio."
-                                 data-score="4"
-                                 data-created="2026-05-03T22:34:39.479000+00:00"
-                                 data-likes="7"
-                                 data-dislikes="3">
-                            <div class="suggestion-author">Rangel Roan</div>
-                            <div class="suggestion-username">@rangelgb · 03/05/2026 22:34</div>
-                            <div class="suggestion-content"><span class="content-short">Colocar a consignação. Facilitaria muito o player que busca comprar ou vender.
-Manter esse…</span><span class="content-full" style="display:none">Colocar a consignação. Facilitaria muito o player que busca comprar ou vender.
-Manter esse monte de lojinhas só para fingir um grande movimento no servidor, acaba que só atrapalha o comércio.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
-                            <div class="votes">
-                                <span class="v-likes">7 👍</span>
-                                <span class="v-dislikes">3 👎</span>
-                                <span class="v-score-pos">4</span>
-                            </div>
-                            
-                                <div class="tags">
-                                    <span class="tag topic">implementar consignação</span>
-                                    <span class="tag category" onclick="filterByCategory('Qualidade de vida')">Qualidade de vida</span>
-                                    <span class="tag critico">critico</span>
                                 </div>
                             
                             
@@ -908,7 +1077,7 @@ Sem contar que desde que veio os pet&#39;s up2, eles NÃO HERDAM os atributos co
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">reworkar pets das WFs</span>
+                                    <span class="tag topic">reworkar pets das wfs</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag critico">critico</span>
                                 </div>
@@ -918,26 +1087,29 @@ Sem contar que desde que veio os pet&#39;s up2, eles NÃO HERDAM os atributos co
                     
                         
                         <article class="suggestion sug-score-pos"
-                                 data-id="1500918320281686056"
-                                 data-cat="Gameplay"
-                                 data-content="ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um dos grandes acertos  do mesmo."
+                                 data-id="1500626674428022815"
+                                 data-cat="Qualidade de vida"
+                                 data-content="colocar a consignação. facilitaria muito o player que busca comprar ou vender.
+manter esse monte de lojinhas só para fingir um grande movimento no servidor, acaba que só atrapalha o comércio."
                                  data-score="2"
-                                 data-created="2026-05-04T17:53:33.269000+00:00"
-                                 data-likes="5"
-                                 data-dislikes="3">
-                            <div class="suggestion-author">patoAGACHADO</div>
-                            <div class="suggestion-username">@raparigama · 04/05/2026 17:53</div>
-                            <div class="suggestion-content"><span class="content-short">Ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um …</span><span class="content-full" style="display:none">Ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um dos grandes acertos  do mesmo.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                                 data-created="2026-05-03T22:34:39.479000+00:00"
+                                 data-likes="7"
+                                 data-dislikes="5">
+                            <div class="suggestion-author">Rangel Roan</div>
+                            <div class="suggestion-username">@rangelgb · 03/05/2026 22:34</div>
+                            <div class="suggestion-content"><span class="content-short">Colocar a consignação. Facilitaria muito o player que busca comprar ou vender.
+Manter esse…</span><span class="content-full" style="display:none">Colocar a consignação. Facilitaria muito o player que busca comprar ou vender.
+Manter esse monte de lojinhas só para fingir um grande movimento no servidor, acaba que só atrapalha o comércio.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
                             <div class="votes">
-                                <span class="v-likes">5 👍</span>
-                                <span class="v-dislikes">3 👎</span>
+                                <span class="v-likes">7 👍</span>
+                                <span class="v-dislikes">5 👎</span>
                                 <span class="v-score-pos">2</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">rever sistema transmutada</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag positivo">positivo</span>
+                                    <span class="tag topic">adicionar sistema de consignação</span>
+                                    <span class="tag category" onclick="filterByCategory('Qualidade de vida')">Qualidade de vida</span>
+                                    <span class="tag critico">critico</span>
                                 </div>
                             
                             
@@ -971,29 +1143,27 @@ Sem contar que desde que veio os pet&#39;s up2, eles NÃO HERDAM os atributos co
                         </article>
                     
                         
-                        <article class="suggestion sug-score-neu"
-                                 data-id="1500859050467004437"
-                                 data-cat="Gameplay"
-                                 data-content="voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria no comércio de pedras também que não se encontra mais, quem está montando um char do 0 não encontra pedra 12 para equipar no char.
-aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção além de adicionar fragmento de budas nos baús da transmutada também."
-                                 data-score="0"
-                                 data-created="2026-05-04T13:58:02.244000+00:00"
-                                 data-likes="7"
-                                 data-dislikes="7">
-                            <div class="suggestion-author">Tico[The]Badass</div>
-                            <div class="suggestion-username">@tico_o_banido · 04/05/2026 13:58</div>
-                            <div class="suggestion-content"><span class="content-short">Voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria…</span><span class="content-full" style="display:none">Voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria no comércio de pedras também que não se encontra mais, quem está montando um char do 0 não encontra pedra 12 para equipar no char.
-Aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção além de adicionar fragmento de budas nos baús da transmutada também.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                        <article class="suggestion sug-score-pos"
+                                 data-id="1500918320281686056"
+                                 data-cat="Geral"
+                                 data-content="ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um dos grandes acertos  do mesmo."
+                                 data-score="1"
+                                 data-created="2026-05-04T17:53:33.269000+00:00"
+                                 data-likes="5"
+                                 data-dislikes="4">
+                            <div class="suggestion-author">patoAGACHADO</div>
+                            <div class="suggestion-username">@raparigama · 04/05/2026 17:53</div>
+                            <div class="suggestion-content"><span class="content-short">Ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um …</span><span class="content-full" style="display:none">Ótima ideia fora que a transmutada era uma coisa que levava a identidade do servidor e um dos grandes acertos  do mesmo.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
                             <div class="votes">
-                                <span class="v-likes">7 👍</span>
-                                <span class="v-dislikes">7 👎</span>
-                                <span class="v-score-neu">0</span>
+                                <span class="v-likes">5 👍</span>
+                                <span class="v-dislikes">4 👎</span>
+                                <span class="v-score-pos">1</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">voltar transmutada e aumentar drop pedras</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag critico">critico</span>
+                                    <span class="tag topic">manter identidade do servidor com transmutada</span>
+                                    <span class="tag category" onclick="filterByCategory('Geral')">Geral</span>
+                                    <span class="tag positivo">positivo</span>
                                 </div>
                             
                             
@@ -1001,16 +1171,16 @@ Aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção
                     
                         
                         <article class="suggestion sug-score-neu"
-                                 data-id="1500692601429561455"
+                                 data-id="1501593864027373798"
                                  data-cat="Gameplay"
-                                 data-content="entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. porém nesse servidor existe uma parada chamada (titulo)  que quando veio lançamento dessa versão que tamo hoje não existia na época, observando bem a atual realidade do servidor hoje ainda mais agora que boa parte do servidor já atingiu as passivas de def nível 10, as classes que são pra ser tank já tão tancando razoavelmente bem, até  pq hoje tu pega um wb ali end o cara pega 30k de def mágica fácil, realmente vai chegar um ponto que será preciso colocar pedra de con e nível def mas acho que de momento aindan é hora."
+                                 data-content="arena começa ai de 12h, qm quiser semanal q jogue bora dia todo de arenaa kkk ou de 6h da manha ate 1h da madrugada"
                                  data-score="0"
-                                 data-created="2026-05-04T02:56:37.701000+00:00"
+                                 data-created="2026-05-06T14:37:55.449000+00:00"
                                  data-likes="3"
                                  data-dislikes="3">
-                            <div class="suggestion-author">patoAGACHADO</div>
-                            <div class="suggestion-username">@raparigama · 04/05/2026 02:56</div>
-                            <div class="suggestion-content"><span class="content-short">Entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. Porém …</span><span class="content-full" style="display:none">Entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. Porém nesse servidor existe uma parada chamada (TITULO)  que quando veio lançamento dessa versão que tamo hoje não existia na época, observando bem a atual realidade do servidor hoje ainda mais agora que boa parte do servidor já atingiu as passivas de def nível 10, as classes que são pra ser tank já tão tancando razoavelmente bem, até  pq hoje tu pega um wb ali End o cara pega 30k de def mágica fácil, realmente vai chegar um ponto que será preciso colocar pedra de con e nível def mas acho que de momento aindan é hora.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="suggestion-author">-BrownN 🎃</div>
+                            <div class="suggestion-username">@youimp. · 06/05/2026 14:37</div>
+                            <div class="suggestion-content"><span class="content-short">ARENA COMEÇA AI DE 12H, QM QUISER SEMANAL Q JOGUE BORA DIA TODO DE ARENAA KKK Ou DE 6H da …</span><span class="content-full" style="display:none">ARENA COMEÇA AI DE 12H, QM QUISER SEMANAL Q JOGUE BORA DIA TODO DE ARENAA KKK Ou DE 6H da manha ate 1h da madrugada</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
                             <div class="votes">
                                 <span class="v-likes">3 👍</span>
                                 <span class="v-dislikes">3 👎</span>
@@ -1018,9 +1188,36 @@ Aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">adicionar pedra de con e nível def</span>
+                                    <span class="tag topic">iniciar arena às 12h ou horário estendido</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag critico">critico</span>
+                                    <span class="tag neutro">neutro</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-neu"
+                                 data-id="1501918937464438955"
+                                 data-cat="Monetizacao"
+                                 data-content="aumentar o limite das lojinhas de 4bi para 8bi"
+                                 data-score="0"
+                                 data-created="2026-05-07T12:09:38.996000+00:00"
+                                 data-likes="1"
+                                 data-dislikes="1">
+                            <div class="suggestion-author">Impaler</div>
+                            <div class="suggestion-username">@impaler7309 · 07/05/2026 12:09</div>
+                            <div class="suggestion-content">Aumentar o limite das lojinhas de 4bi para 8bi</div>
+                            <div class="votes">
+                                <span class="v-likes">1 👍</span>
+                                <span class="v-dislikes">1 👎</span>
+                                <span class="v-score-neu">0</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">aumentar limite das lojinhas para 8bi</span>
+                                    <span class="tag category" onclick="filterByCategory('Monetizacao')">Monetizacao</span>
+                                    <span class="tag neutro">neutro</span>
                                 </div>
                             
                             
@@ -1029,7 +1226,7 @@ Aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção
                         
                         <article class="suggestion sug-score-neu"
                                  data-id="1500977637756108903"
-                                 data-cat="Gameplay"
+                                 data-cat="Geral"
                                  data-content="só estou dizendo o que foi de acordo com o real equilibrio.
 e não isso que tá hoje em dia. 
 mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (y)"
@@ -1050,7 +1247,63 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">revisar equilíbrio do servidor</span>
+                                    <span class="tag topic">manter equilíbrio do servidor</span>
+                                    <span class="tag category" onclick="filterByCategory('Geral')">Geral</span>
+                                    <span class="tag positivo">positivo</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-neg"
+                                 data-id="1500859050467004437"
+                                 data-cat="Gameplay"
+                                 data-content="voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria no comércio de pedras também que não se encontra mais, quem está montando um char do 0 não encontra pedra 12 para equipar no char.
+aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção além de adicionar fragmento de budas nos baús da transmutada também."
+                                 data-score="-1"
+                                 data-created="2026-05-04T13:58:02.244000+00:00"
+                                 data-likes="7"
+                                 data-dislikes="8">
+                            <div class="suggestion-author">Tico[The]Badass</div>
+                            <div class="suggestion-username">@tico_o_banido · 04/05/2026 13:58</div>
+                            <div class="suggestion-content"><span class="content-short">Voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria…</span><span class="content-full" style="display:none">Voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria no comércio de pedras também que não se encontra mais, quem está montando um char do 0 não encontra pedra 12 para equipar no char.
+Aumentar a porcentagem de drop de pedra 10 no baú da raid seria uma boa opção além de adicionar fragmento de budas nos baús da transmutada também.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">7 👍</span>
+                                <span class="v-dislikes">8 👎</span>
+                                <span class="v-score-neg">-1</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">voltar transmutada e aumentar drop de pedras</span>
+                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag critico">critico</span>
+                                </div>
+                            
+                            
+                        </article>
+                    
+                        
+                        <article class="suggestion sug-score-neg"
+                                 data-id="1500692601429561455"
+                                 data-cat="Gameplay"
+                                 data-content="entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. porém nesse servidor existe uma parada chamada (titulo)  que quando veio lançamento dessa versão que tamo hoje não existia na época, observando bem a atual realidade do servidor hoje ainda mais agora que boa parte do servidor já atingiu as passivas de def nível 10, as classes que são pra ser tank já tão tancando razoavelmente bem, até  pq hoje tu pega um wb ali end o cara pega 30k de def mágica fácil, realmente vai chegar um ponto que será preciso colocar pedra de con e nível def mas acho que de momento aindan é hora."
+                                 data-score="-1"
+                                 data-created="2026-05-04T02:56:37.701000+00:00"
+                                 data-likes="3"
+                                 data-dislikes="4">
+                            <div class="suggestion-author">patoAGACHADO</div>
+                            <div class="suggestion-username">@raparigama · 04/05/2026 02:56</div>
+                            <div class="suggestion-content"><span class="content-short">Entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. Porém …</span><span class="content-full" style="display:none">Entendo seu ponto e realmente nessa versão já deveria ter pedra de con e nível def. Porém nesse servidor existe uma parada chamada (TITULO)  que quando veio lançamento dessa versão que tamo hoje não existia na época, observando bem a atual realidade do servidor hoje ainda mais agora que boa parte do servidor já atingiu as passivas de def nível 10, as classes que são pra ser tank já tão tancando razoavelmente bem, até  pq hoje tu pega um wb ali End o cara pega 30k de def mágica fácil, realmente vai chegar um ponto que será preciso colocar pedra de con e nível def mas acho que de momento aindan é hora.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
+                            <div class="votes">
+                                <span class="v-likes">3 👍</span>
+                                <span class="v-dislikes">4 👎</span>
+                                <span class="v-score-neg">-1</span>
+                            </div>
+                            
+                                <div class="tags">
+                                    <span class="tag topic">adicionar pedra de con e nível def</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag neutro">neutro</span>
                                 </div>
@@ -1063,23 +1316,23 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                                  data-id="1500197439121133638"
                                  data-cat="Gameplay"
                                  data-content="liberar mais ips por dg"
-                                 data-score="-4"
+                                 data-score="-5"
                                  data-created="2026-05-02T18:09:01.807000+00:00"
                                  data-likes="8"
-                                 data-dislikes="12">
+                                 data-dislikes="13">
                             <div class="suggestion-author">Laertton / Wolfzeira</div>
                             <div class="suggestion-username">@ulaerton · 02/05/2026 18:09</div>
                             <div class="suggestion-content">Liberar mais ips por dg</div>
                             <div class="votes">
                                 <span class="v-likes">8 👍</span>
-                                <span class="v-dislikes">12 👎</span>
-                                <span class="v-score-neg">-4</span>
+                                <span class="v-dislikes">13 👎</span>
+                                <span class="v-score-neg">-5</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">liberar mais IPs por dungeon</span>
+                                    <span class="tag topic">liberar mais ips por dungeon</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag critico">critico</span>
+                                    <span class="tag neutro">neutro</span>
                                 </div>
                             
                             
@@ -1088,7 +1341,7 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                         
                         <article class="suggestion sug-score-neg"
                                  data-id="1500245744098218034"
-                                 data-cat="Gameplay"
+                                 data-cat="Monetizacao"
                                  data-content="selo de fortificação do mestre da experiência solto, para ajudar a precificar os selos do evento artes marciais"
                                  data-score="-5"
                                  data-created="2026-05-02T21:20:58.611000+00:00"
@@ -1104,8 +1357,8 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">soltar selo de fortificação do mestre</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag topic">soltar selo de fortificação do mestre da experiência</span>
+                                    <span class="tag category" onclick="filterByCategory('Monetizacao')">Monetizacao</span>
                                     <span class="tag neutro">neutro</span>
                                 </div>
                             
@@ -1117,23 +1370,23 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                                  data-id="1500197729274695680"
                                  data-cat="Gameplay"
                                  data-content="5 contas cada libera ai &lt;@762113685111570492&gt;"
-                                 data-score="-6"
+                                 data-score="-7"
                                  data-created="2026-05-02T18:10:10.985000+00:00"
                                  data-likes="5"
-                                 data-dislikes="11">
+                                 data-dislikes="12">
                             <div class="suggestion-author">! oakleyxz</div>
                             <div class="suggestion-username">@oakleyzada · 02/05/2026 18:10</div>
                             <div class="suggestion-content">5 contas cada libera ai &lt;@762113685111570492&gt;</div>
                             <div class="votes">
                                 <span class="v-likes">5 👍</span>
-                                <span class="v-dislikes">11 👎</span>
-                                <span class="v-score-neg">-6</span>
+                                <span class="v-dislikes">12 👎</span>
+                                <span class="v-score-neg">-7</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">liberar 5 contas por IP</span>
+                                    <span class="tag topic">liberar 5 contas por ip</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
-                                    <span class="tag critico">critico</span>
+                                    <span class="tag neutro">neutro</span>
                                 </div>
                             
                             
@@ -1144,21 +1397,21 @@ Mas o povo tem razão, vai ver que por isso que o server tá cada vez melhor (Y)
                                  data-id="1500214354866606292"
                                  data-cat="Gameplay"
                                  data-content="faz a boa meu prefeito, o comercio que faz  o jogo #5contasporip &lt;@762113685111570492&gt;"
-                                 data-score="-8"
+                                 data-score="-9"
                                  data-created="2026-05-02T19:16:14.835000+00:00"
                                  data-likes="3"
-                                 data-dislikes="11">
+                                 data-dislikes="12">
                             <div class="suggestion-author">Laertton / Wolfzeira</div>
                             <div class="suggestion-username">@ulaerton · 02/05/2026 19:16</div>
                             <div class="suggestion-content">FAZ A BOA MEU PREFEITO, O COMERCIO QUE FAZ  O JOGO #5CONTASPORIP &lt;@762113685111570492&gt;</div>
                             <div class="votes">
                                 <span class="v-likes">3 👍</span>
-                                <span class="v-dislikes">11 👎</span>
-                                <span class="v-score-neg">-8</span>
+                                <span class="v-dislikes">12 👎</span>
+                                <span class="v-score-neg">-9</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">liberar 5 contas por IP</span>
+                                    <span class="tag topic">liberar 5 contas por ip</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag critico">critico</span>
                                 </div>
@@ -1175,21 +1428,21 @@ acho que falta um pouco de equilíbrio em relação a o meta.
 na pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz tempo."
                                  data-score="-13"
                                  data-created="2026-05-03T18:49:01.292000+00:00"
-                                 data-likes="2"
-                                 data-dislikes="15">
+                                 data-likes="4"
+                                 data-dislikes="17">
                             <div class="suggestion-author">AshesWB</div>
                             <div class="suggestion-username">@nameless.rafa · 03/05/2026 18:49</div>
                             <div class="suggestion-content"><span class="content-short">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de…</span><span class="content-full" style="display:none">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de Def Nvl, muito menos pedra de Con.
 Acho que falta um pouco de equilíbrio em relação a o meta.
 Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz tempo.</span><button class="expand-btn" onclick="toggleExpand(this)">▼ ver mais</button></div>
                             <div class="votes">
-                                <span class="v-likes">2 👍</span>
-                                <span class="v-dislikes">15 👎</span>
+                                <span class="v-likes">4 👍</span>
+                                <span class="v-dislikes">17 👎</span>
                                 <span class="v-score-neg">-13</span>
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">balancear armas e pedras de defesa</span>
+                                    <span class="tag topic">balancear meta com pedras de defesa e constituição</span>
                                     <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
                                     <span class="tag critico">critico</span>
                                 </div>
@@ -1200,7 +1453,7 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                         
                         <article class="suggestion sug-score-neg"
                                  data-id="1499979346931220480"
-                                 data-cat="Gameplay"
+                                 data-cat="Comunidade"
                                  data-content="aumentar os slots do clã para 150/160, pois tem pessoas que kitam do servidor por não haver vaga em um clã competitivo já estruturado."
                                  data-score="-14"
                                  data-created="2026-05-02T03:42:24.577000+00:00"
@@ -1216,8 +1469,8 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             </div>
                             
                                 <div class="tags">
-                                    <span class="tag topic">aumentar slots do clã</span>
-                                    <span class="tag category" onclick="filterByCategory('Gameplay')">Gameplay</span>
+                                    <span class="tag topic">aumentar slots do clã para 150/160</span>
+                                    <span class="tag category" onclick="filterByCategory('Comunidade')">Comunidade</span>
                                     <span class="tag critico">critico</span>
                                 </div>
                             
@@ -1264,21 +1517,34 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                                 
                             </div>
                             <div class="rank-votes">
-                                <span class="v-likes">14 👍</span>
+                                <span class="v-likes">15 👍</span>
                                 <span class="v-dislikes">2 👎</span>
+                                <span class="v-score-pos">13</span>
+                            </div>
+                        </div>
+                    
+                        <div class="rank-item">
+                            <div class="rank-num">#3 · dw___</div>
+                            <div class="rank-content">
+                                <span class="r-short-p3">melhorar drop da torre , 108 andares pra ganhar 120 selos e triste</span>
+                                
+                            </div>
+                            <div class="rank-votes">
+                                <span class="v-likes">13 👍</span>
+                                <span class="v-dislikes">1 👎</span>
                                 <span class="v-score-pos">12</span>
                             </div>
                         </div>
                     
                         <div class="rank-item">
-                            <div class="rank-num">#3 · Buny</div>
+                            <div class="rank-num">#4 · Buny</div>
                             <div class="rank-content">
-                                <span class="r-short-p3">Retorno do Selo de Guan Yu: Reintroduzir o Selo de Guan Yu nas instâncias 20x20 e Minitw.
+                                <span class="r-short-p4">Retorno do Selo de Guan Yu: Reintroduzir o Selo de Guan Yu nas instâncias 20x20 e Minitw.
 
 Otimizaçã…</span>
                                 
-                                    <span class="r-full-p3" style="display:none">o de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack) de pedras de nível 11 e 12 em pacotes de até 999 unidades, visando a economia de slots no inventário.</span>
-                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-p3','r-full-p3')">▼</button>
+                                    <span class="r-full-p4" style="display:none">o de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack) de pedras de nível 11 e 12 em pacotes de até 999 unidades, visando a economia de slots no inventário.</span>
+                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-p4','r-full-p4')">▼</button>
                                 
                             </div>
                             <div class="rank-votes">
@@ -1289,9 +1555,9 @@ Otimizaçã…</span>
                         </div>
                     
                         <div class="rank-item">
-                            <div class="rank-num">#4 · Jessejames</div>
+                            <div class="rank-num">#5 · Jessejames</div>
                             <div class="rank-content">
-                                <span class="r-short-p4">Liberar transmutação da GOW</span>
+                                <span class="r-short-p5">Liberar transmutação da GOW</span>
                                 
                             </div>
                             <div class="rank-votes">
@@ -1301,57 +1567,41 @@ Otimizaçã…</span>
                             </div>
                         </div>
                     
-                        <div class="rank-item">
-                            <div class="rank-num">#5 · Gabriel Bermejo</div>
-                            <div class="rank-content">
-                                <span class="r-short-p5">Contratar alguem que de fato queria resolver os problemas colocados no Ticket, nunca é resolvido os …</span>
-                                
-                                    <span class="r-full-p5" style="display:none">meus ticket</span>
-                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-p5','r-full-p5')">▼</button>
-                                
-                            </div>
-                            <div class="rank-votes">
-                                <span class="v-likes">10 👍</span>
-                                <span class="v-dislikes">1 👎</span>
-                                <span class="v-score-pos">9</span>
-                            </div>
-                        </div>
-                    
 
                     <!-- Top rejeitadas -->
                     <div class="section-label section-sep">🚫 Top rejeitadas</div>
                     
                         <div class="rank-item">
-                            <div class="rank-num">#1 · Rodrigo - 𝟏𝟎𝟎ɴɪɔk</div>
+                            <div class="rank-num">#1 · AshesWB</div>
                             <div class="rank-content">
-                                <span class="r-short-n1">Aumentar os slots do clã para 150/160, pois tem pessoas que kitam do servidor por não haver vaga em …</span>
+                                <span class="r-short-n1">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de Def Nvl, …</span>
                                 
-                                    <span class="r-full-n1" style="display:none">um clã competitivo já estruturado.</span>
+                                    <span class="r-full-n1" style="display:none">muito menos pedra de Con.
+Acho que falta um pouco de equilíbrio em relação a o meta.
+Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz tempo.</span>
                                     <button class="expand-btn" onclick="toggleRank(this,'r-short-n1','r-full-n1')">▼</button>
+                                
+                            </div>
+                            <div class="rank-votes">
+                                <span class="v-likes">4 👍</span>
+                                <span class="v-dislikes">17 👎</span>
+                                <span class="v-score-neg">-13</span>
+                            </div>
+                        </div>
+                    
+                        <div class="rank-item">
+                            <div class="rank-num">#2 · Rodrigo - 𝟏𝟎𝟎ɴɪɔk</div>
+                            <div class="rank-content">
+                                <span class="r-short-n2">Aumentar os slots do clã para 150/160, pois tem pessoas que kitam do servidor por não haver vaga em …</span>
+                                
+                                    <span class="r-full-n2" style="display:none">um clã competitivo já estruturado.</span>
+                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-n2','r-full-n2')">▼</button>
                                 
                             </div>
                             <div class="rank-votes">
                                 <span class="v-likes">3 👍</span>
                                 <span class="v-dislikes">17 👎</span>
                                 <span class="v-score-neg">-14</span>
-                            </div>
-                        </div>
-                    
-                        <div class="rank-item">
-                            <div class="rank-num">#2 · AshesWB</div>
-                            <div class="rank-content">
-                                <span class="r-short-n2">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de Def Nvl, …</span>
-                                
-                                    <span class="r-full-n2" style="display:none">muito menos pedra de Con.
-Acho que falta um pouco de equilíbrio em relação a o meta.
-Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz tempo.</span>
-                                    <button class="expand-btn" onclick="toggleRank(this,'r-short-n2','r-full-n2')">▼</button>
-                                
-                            </div>
-                            <div class="rank-votes">
-                                <span class="v-likes">2 👍</span>
-                                <span class="v-dislikes">15 👎</span>
-                                <span class="v-score-neg">-13</span>
                             </div>
                         </div>
                     
@@ -1363,8 +1613,8 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             </div>
                             <div class="rank-votes">
                                 <span class="v-likes">8 👍</span>
-                                <span class="v-dislikes">12 👎</span>
-                                <span class="v-score-neg">-4</span>
+                                <span class="v-dislikes">13 👎</span>
+                                <span class="v-score-neg">-5</span>
                             </div>
                         </div>
                     
@@ -1376,8 +1626,8 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             </div>
                             <div class="rank-votes">
                                 <span class="v-likes">3 👍</span>
-                                <span class="v-dislikes">11 👎</span>
-                                <span class="v-score-neg">-8</span>
+                                <span class="v-dislikes">12 👎</span>
+                                <span class="v-score-neg">-9</span>
                             </div>
                         </div>
                     
@@ -1389,8 +1639,8 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             </div>
                             <div class="rank-votes">
                                 <span class="v-likes">5 👍</span>
-                                <span class="v-dislikes">11 👎</span>
-                                <span class="v-score-neg">-6</span>
+                                <span class="v-dislikes">12 👎</span>
+                                <span class="v-score-neg">-7</span>
                             </div>
                         </div>
                     
@@ -1405,18 +1655,18 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">2x</span>
-                                    <span class="topic-name">liberar 5 contas por IP</span>
+                                    <span class="topic-name">liberar 5 contas por ip</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
                                         <span class="topic-vote-num tv-likes">👍 8</span>
                                         <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:27%;"></div>
-                                            <div class="topic-bar-dislike" style="width:73%;"></div>
+                                            <div class="topic-bar-like"    style="width:25%;"></div>
+                                            <div class="topic-bar-dislike" style="width:75%;"></div>
                                         </div>
-                                        <span class="topic-vote-num tv-dislikes">22 👎</span>
-                                        <span class="topic-score">-14</span>
+                                        <span class="topic-vote-num tv-dislikes">24 👎</span>
+                                        <span class="topic-score">-16</span>
                                     </div>
                                     
                                     <div class="topic-examples">
@@ -1427,7 +1677,7 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                                                 <span class="topic-example-date">02/05/2026 18:10</span>
                                                 <div class="topic-example-votes">
                                                     <span class="v-likes">5 👍</span>
-                                                    <span class="v-dislikes">11 👎</span>
+                                                    <span class="v-dislikes">12 👎</span>
                                                 </div>
                                             </div>
                                             <div class="topic-example-content">5 contas cada libera ai &lt;@762113685111570492&gt;</div>
@@ -1440,7 +1690,7 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                                                 <span class="topic-example-date">02/05/2026 19:16</span>
                                                 <div class="topic-example-votes">
                                                     <span class="v-likes">3 👍</span>
-                                                    <span class="v-dislikes">11 👎</span>
+                                                    <span class="v-dislikes">12 👎</span>
                                                 </div>
                                             </div>
                                             <div class="topic-example-content">FAZ A BOA MEU PREFEITO, O COMERCIO QUE FAZ  O JOGO #5CONTASPORIP &lt;@762113685111570492&gt;</div>
@@ -1457,18 +1707,59 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">liberar mais IPs por dungeon</span>
+                                    <span class="topic-name">balancear meta com pedras de defesa e constituição</span>
+                                    <span class="topic-cat-badge">Gameplay</span>
+                                </div>
+                                <div class="topic-card-body">
+                                    <div class="topic-vote-row">
+                                        <span class="topic-vote-num tv-likes">👍 4</span>
+                                        <div class="topic-bar-track">
+                                            <div class="topic-bar-like"    style="width:19%;"></div>
+                                            <div class="topic-bar-dislike" style="width:81%;"></div>
+                                        </div>
+                                        <span class="topic-vote-num tv-dislikes">17 👎</span>
+                                        <span class="topic-score">-13</span>
+                                    </div>
+                                    
+                                    <div class="topic-examples">
+                                        
+                                        <div class="topic-example" onclick="highlightSuggestion('1500569891156263072')">
+                                            <div class="topic-example-head">
+                                                <span class="topic-example-author">AshesWB</span>
+                                                <span class="topic-example-date">03/05/2026 18:49</span>
+                                                <div class="topic-example-votes">
+                                                    <span class="v-likes">4 👍</span>
+                                                    <span class="v-dislikes">17 👎</span>
+                                                </div>
+                                            </div>
+                                            <div class="topic-example-content">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de Def Nvl, muito menos pedra de Con.
+Acho que falta um pouco de equilíbrio em relação a o meta.
+Na Pw oficial, nesse nível de equip…</div>
+                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                            
+                            
+                            <div class="topic-card">
+                                <div class="topic-card-head">
+                                    <span class="topic-count-badge">1x</span>
+                                    <span class="topic-name">liberar mais ips por dungeon</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
                                         <span class="topic-vote-num tv-likes">👍 8</span>
                                         <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:40%;"></div>
-                                            <div class="topic-bar-dislike" style="width:60%;"></div>
+                                            <div class="topic-bar-like"    style="width:38%;"></div>
+                                            <div class="topic-bar-dislike" style="width:62%;"></div>
                                         </div>
-                                        <span class="topic-vote-num tv-dislikes">12 👎</span>
-                                        <span class="topic-score">-4</span>
+                                        <span class="topic-vote-num tv-dislikes">13 👎</span>
+                                        <span class="topic-score">-5</span>
                                     </div>
                                     
                                     <div class="topic-examples">
@@ -1479,7 +1770,7 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                                                 <span class="topic-example-date">02/05/2026 18:09</span>
                                                 <div class="topic-example-votes">
                                                     <span class="v-likes">8 👍</span>
-                                                    <span class="v-dislikes">12 👎</span>
+                                                    <span class="v-dislikes">13 👎</span>
                                                 </div>
                                             </div>
                                             <div class="topic-example-content">Liberar mais ips por dg</div>
@@ -1496,8 +1787,8 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">aumentar slots do clã</span>
-                                    <span class="topic-cat-badge">Gameplay</span>
+                                    <span class="topic-name">aumentar slots do clã para 150/160</span>
+                                    <span class="topic-cat-badge">Comunidade</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
@@ -1535,34 +1826,33 @@ Na Pw oficial, nesse nível de equips já era pra ter pedras de def nvl2  faz te
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">balancear armas e pedras de defesa</span>
+                                    <span class="topic-name">manter 3 ou 4 contas por ip</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 2</span>
+                                        <span class="topic-vote-num tv-likes">👍 11</span>
                                         <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:12%;"></div>
-                                            <div class="topic-bar-dislike" style="width:88%;"></div>
+                                            <div class="topic-bar-like"    style="width:65%;"></div>
+                                            <div class="topic-bar-dislike" style="width:35%;"></div>
                                         </div>
-                                        <span class="topic-vote-num tv-dislikes">15 👎</span>
-                                        <span class="topic-score">-13</span>
+                                        <span class="topic-vote-num tv-dislikes">6 👎</span>
+                                        <span class="topic-score">5</span>
                                     </div>
                                     
                                     <div class="topic-examples">
                                         
-                                        <div class="topic-example" onclick="highlightSuggestion('1500569891156263072')">
+                                        <div class="topic-example" onclick="highlightSuggestion('1500337062975373413')">
                                             <div class="topic-example-head">
-                                                <span class="topic-example-author">AshesWB</span>
-                                                <span class="topic-example-date">03/05/2026 18:49</span>
+                                                <span class="topic-example-author">Yo</span>
+                                                <span class="topic-example-date">03/05/2026 03:23</span>
                                                 <div class="topic-example-votes">
-                                                    <span class="v-likes">2 👍</span>
-                                                    <span class="v-dislikes">15 👎</span>
+                                                    <span class="v-likes">11 👍</span>
+                                                    <span class="v-dislikes">6 👎</span>
                                                 </div>
                                             </div>
-                                            <div class="topic-example-content">&lt;@762113685111570492&gt; Brunao, você colocou armas bufadas de 50 nvls e não colocou pedra de Def Nvl, muito menos pedra de Con.
-Acho que falta um pouco de equilíbrio em relação a o meta.
-Na Pw oficial, nesse nível de equip…</div>
+                                            <div class="topic-example-content">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
+Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
                                             <div class="topic-example-hint">↖ clique para ver na lista</div>
                                         </div>
                                         
@@ -1576,7 +1866,7 @@ Na Pw oficial, nesse nível de equip…</div>
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">reduzir custo troca de gênero skin</span>
+                                    <span class="topic-name">reduzir custo de troca de gênero de skin</span>
                                     <span class="topic-cat-badge">Monetizacao</span>
                                 </div>
                                 <div class="topic-card-body">
@@ -1615,58 +1905,18 @@ Na Pw oficial, nesse nível de equip…</div>
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">manter 3 ou 4 contas por IP</span>
+                                    <span class="topic-name">adicionar reset de dungeons para farm solo</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 10</span>
-                                        <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:62%;"></div>
-                                            <div class="topic-bar-dislike" style="width:38%;"></div>
-                                        </div>
-                                        <span class="topic-vote-num tv-dislikes">6 👎</span>
-                                        <span class="topic-score">4</span>
-                                    </div>
-                                    
-                                    <div class="topic-examples">
-                                        
-                                        <div class="topic-example" onclick="highlightSuggestion('1500337062975373413')">
-                                            <div class="topic-example-head">
-                                                <span class="topic-example-author">Yo</span>
-                                                <span class="topic-example-date">03/05/2026 03:23</span>
-                                                <div class="topic-example-votes">
-                                                    <span class="v-likes">10 👍</span>
-                                                    <span class="v-dislikes">6 👎</span>
-                                                </div>
-                                            </div>
-                                            <div class="topic-example-content">Acho ideal manter em 3 contas por IP ou no máximo subir para 4, pois em farm de 3 pessoas uma quarta conta já ajuda no dano e no gerenciamento de buffs.
-Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
-                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        
-                            
-                            
-                            <div class="topic-card">
-                                <div class="topic-card-head">
-                                    <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">adicionar reset de dungeon para farm solo</span>
-                                    <span class="topic-cat-badge">Gameplay</span>
-                                </div>
-                                <div class="topic-card-body">
-                                    <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 14</span>
+                                        <span class="topic-vote-num tv-likes">👍 15</span>
                                         <div class="topic-bar-track">
                                             <div class="topic-bar-like"    style="width:88%;"></div>
                                             <div class="topic-bar-dislike" style="width:12%;"></div>
                                         </div>
                                         <span class="topic-vote-num tv-dislikes">2 👎</span>
-                                        <span class="topic-score">12</span>
+                                        <span class="topic-score">13</span>
                                     </div>
                                     
                                     <div class="topic-examples">
@@ -1676,7 +1926,7 @@ Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
                                                 <span class="topic-example-author">veddita</span>
                                                 <span class="topic-example-date">01/05/2026 11:07</span>
                                                 <div class="topic-example-votes">
-                                                    <span class="v-likes">14 👍</span>
+                                                    <span class="v-likes">15 👍</span>
                                                     <span class="v-dislikes">2 👎</span>
                                                 </div>
                                             </div>
@@ -1694,18 +1944,18 @@ Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">voltar transmutada e aumentar drop pedras</span>
+                                    <span class="topic-name">voltar transmutada e aumentar drop de pedras</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
                                     <div class="topic-vote-row">
                                         <span class="topic-vote-num tv-likes">👍 7</span>
                                         <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:50%;"></div>
-                                            <div class="topic-bar-dislike" style="width:50%;"></div>
+                                            <div class="topic-bar-like"    style="width:47%;"></div>
+                                            <div class="topic-bar-dislike" style="width:53%;"></div>
                                         </div>
-                                        <span class="topic-vote-num tv-dislikes">7 👎</span>
-                                        <span class="topic-score">0</span>
+                                        <span class="topic-vote-num tv-dislikes">8 👎</span>
+                                        <span class="topic-score">-1</span>
                                     </div>
                                     
                                     <div class="topic-examples">
@@ -1716,7 +1966,7 @@ Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
                                                 <span class="topic-example-date">04/05/2026 13:58</span>
                                                 <div class="topic-example-votes">
                                                     <span class="v-likes">7 👍</span>
-                                                    <span class="v-dislikes">7 👎</span>
+                                                    <span class="v-dislikes">8 👎</span>
                                                 </div>
                                             </div>
                                             <div class="topic-example-content">Voltar com transmutada, era legal o farm, moeda de ouro está escassa no servidor, ajudaria no comércio de pedras também que não se encontra mais, quem está montando um char do 0 não encontra pedra 12 para equipar no char…</div>
@@ -1733,7 +1983,126 @@ Assim facilita runs em grupo sem impactar tanto a economia, evitand…</div>
                             <div class="topic-card">
                                 <div class="topic-card-head">
                                     <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">reintroduzir selo Guan Yu e stack pedras</span>
+                                    <span class="topic-name">melhorar drop da torre</span>
+                                    <span class="topic-cat-badge">Gameplay</span>
+                                </div>
+                                <div class="topic-card-body">
+                                    <div class="topic-vote-row">
+                                        <span class="topic-vote-num tv-likes">👍 13</span>
+                                        <div class="topic-bar-track">
+                                            <div class="topic-bar-like"    style="width:93%;"></div>
+                                            <div class="topic-bar-dislike" style="width:7%;"></div>
+                                        </div>
+                                        <span class="topic-vote-num tv-dislikes">1 👎</span>
+                                        <span class="topic-score">12</span>
+                                    </div>
+                                    
+                                    <div class="topic-examples">
+                                        
+                                        <div class="topic-example" onclick="highlightSuggestion('1501554205603659776')">
+                                            <div class="topic-example-head">
+                                                <span class="topic-example-author">dw___</span>
+                                                <span class="topic-example-date">06/05/2026 12:00</span>
+                                                <div class="topic-example-votes">
+                                                    <span class="v-likes">13 👍</span>
+                                                    <span class="v-dislikes">1 👎</span>
+                                                </div>
+                                            </div>
+                                            <div class="topic-example-content">melhorar drop da torre , 108 andares pra ganhar 120 selos e triste</div>
+                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                            
+                            
+                            <div class="topic-card">
+                                <div class="topic-card-head">
+                                    <span class="topic-count-badge">1x</span>
+                                    <span class="topic-name">aumentar duração do 10x10 para duas horas</span>
+                                    <span class="topic-cat-badge">Eventos</span>
+                                </div>
+                                <div class="topic-card-body">
+                                    <div class="topic-vote-row">
+                                        <span class="topic-vote-num tv-likes">👍 9</span>
+                                        <div class="topic-bar-track">
+                                            <div class="topic-bar-like"    style="width:69%;"></div>
+                                            <div class="topic-bar-dislike" style="width:31%;"></div>
+                                        </div>
+                                        <span class="topic-vote-num tv-dislikes">4 👎</span>
+                                        <span class="topic-score">5</span>
+                                    </div>
+                                    
+                                    <div class="topic-examples">
+                                        
+                                        <div class="topic-example" onclick="highlightSuggestion('1500526434119319562')">
+                                            <div class="topic-example-head">
+                                                <span class="topic-example-author">Ghost</span>
+                                                <span class="topic-example-date">03/05/2026 15:56</span>
+                                                <div class="topic-example-votes">
+                                                    <span class="v-likes">9 👍</span>
+                                                    <span class="v-dislikes">4 👎</span>
+                                                </div>
+                                            </div>
+                                            <div class="topic-example-content">&lt;@762113685111570492&gt; 
+
+Aumentar o 10x10 para duas horas até ter tw</div>
+                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                            
+                            
+                            <div class="topic-card">
+                                <div class="topic-card-head">
+                                    <span class="topic-count-badge">1x</span>
+                                    <span class="topic-name">voltar sistema de passe da season</span>
+                                    <span class="topic-cat-badge">Eventos</span>
+                                </div>
+                                <div class="topic-card-body">
+                                    <div class="topic-vote-row">
+                                        <span class="topic-vote-num tv-likes">👍 9</span>
+                                        <div class="topic-bar-track">
+                                            <div class="topic-bar-like"    style="width:69%;"></div>
+                                            <div class="topic-bar-dislike" style="width:31%;"></div>
+                                        </div>
+                                        <span class="topic-vote-num tv-dislikes">4 👎</span>
+                                        <span class="topic-score">5</span>
+                                    </div>
+                                    
+                                    <div class="topic-examples">
+                                        
+                                        <div class="topic-example" onclick="highlightSuggestion('1499728271515058357')">
+                                            <div class="topic-example-head">
+                                                <span class="topic-example-author">EdmoSJ</span>
+                                                <span class="topic-example-date">01/05/2026 11:04</span>
+                                                <div class="topic-example-votes">
+                                                    <span class="v-likes">9 👍</span>
+                                                    <span class="v-dislikes">4 👎</span>
+                                                </div>
+                                            </div>
+                                            <div class="topic-example-content">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos.</div>
+                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        
+                            
+                            
+                            <div class="topic-card">
+                                <div class="topic-card-head">
+                                    <span class="topic-count-badge">1x</span>
+                                    <span class="topic-name">reintroduzir selo de guan yu e otimizar stack de pedras</span>
                                     <span class="topic-cat-badge">Gameplay</span>
                                 </div>
                                 <div class="topic-card-body">
@@ -1769,125 +2138,6 @@ Otimização de Inventário (Pedras Nv. 11 e 12): Permitir o agrupamento (stack)
                                 </div>
                             </div>
                         
-                            
-                            
-                            <div class="topic-card">
-                                <div class="topic-card-head">
-                                    <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">aumentar duração 10x10 para 2 horas</span>
-                                    <span class="topic-cat-badge">Eventos</span>
-                                </div>
-                                <div class="topic-card-body">
-                                    <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 9</span>
-                                        <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:75%;"></div>
-                                            <div class="topic-bar-dislike" style="width:25%;"></div>
-                                        </div>
-                                        <span class="topic-vote-num tv-dislikes">3 👎</span>
-                                        <span class="topic-score">6</span>
-                                    </div>
-                                    
-                                    <div class="topic-examples">
-                                        
-                                        <div class="topic-example" onclick="highlightSuggestion('1500526434119319562')">
-                                            <div class="topic-example-head">
-                                                <span class="topic-example-author">Ghost</span>
-                                                <span class="topic-example-date">03/05/2026 15:56</span>
-                                                <div class="topic-example-votes">
-                                                    <span class="v-likes">9 👍</span>
-                                                    <span class="v-dislikes">3 👎</span>
-                                                </div>
-                                            </div>
-                                            <div class="topic-example-content">&lt;@762113685111570492&gt; 
-
-Aumentar o 10x10 para duas horas até ter tw</div>
-                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        
-                            
-                            
-                            <div class="topic-card">
-                                <div class="topic-card-head">
-                                    <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">criar passe temporada com itens presos</span>
-                                    <span class="topic-cat-badge">Gameplay</span>
-                                </div>
-                                <div class="topic-card-body">
-                                    <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 9</span>
-                                        <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:75%;"></div>
-                                            <div class="topic-bar-dislike" style="width:25%;"></div>
-                                        </div>
-                                        <span class="topic-vote-num tv-dislikes">3 👎</span>
-                                        <span class="topic-score">6</span>
-                                    </div>
-                                    
-                                    <div class="topic-examples">
-                                        
-                                        <div class="topic-example" onclick="highlightSuggestion('1499807686223593502')">
-                                            <div class="topic-example-head">
-                                                <span class="topic-example-author">Impaler</span>
-                                                <span class="topic-example-date">01/05/2026 16:20</span>
-                                                <div class="topic-example-votes">
-                                                    <span class="v-likes">9 👍</span>
-                                                    <span class="v-dislikes">3 👎</span>
-                                                </div>
-                                            </div>
-                                            <div class="topic-example-content">Passe da temporada só com itens presos, quero farmar sangue bárbaro sem ir BH</div>
-                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        
-                            
-                            
-                            <div class="topic-card">
-                                <div class="topic-card-head">
-                                    <span class="topic-count-badge">1x</span>
-                                    <span class="topic-name">voltar sistema de passe da season</span>
-                                    <span class="topic-cat-badge">Gameplay</span>
-                                </div>
-                                <div class="topic-card-body">
-                                    <div class="topic-vote-row">
-                                        <span class="topic-vote-num tv-likes">👍 8</span>
-                                        <div class="topic-bar-track">
-                                            <div class="topic-bar-like"    style="width:67%;"></div>
-                                            <div class="topic-bar-dislike" style="width:33%;"></div>
-                                        </div>
-                                        <span class="topic-vote-num tv-dislikes">4 👎</span>
-                                        <span class="topic-score">4</span>
-                                    </div>
-                                    
-                                    <div class="topic-examples">
-                                        
-                                        <div class="topic-example" onclick="highlightSuggestion('1499728271515058357')">
-                                            <div class="topic-example-head">
-                                                <span class="topic-example-author">EdmoSJ</span>
-                                                <span class="topic-example-date">01/05/2026 11:04</span>
-                                                <div class="topic-example-votes">
-                                                    <span class="v-likes">8 👍</span>
-                                                    <span class="v-dislikes">4 👎</span>
-                                                </div>
-                                            </div>
-                                            <div class="topic-example-content">VOLTAR com o Sistema de Passe da Season, era muito bom, e incentiva fazer muitas coisas para completar além dos premios unicos.</div>
-                                            <div class="topic-example-hint">↖ clique para ver na lista</div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        
                     </div>
                     
 
@@ -1915,22 +2165,22 @@ Aumentar o 10x10 para duas horas até ter tw</div>
                                     <button class="copy-btn" onclick="copyReport()">📋 Copiar</button>
                                 </div>
                                 <div class="conclusao-text">MONETIZACAO E CUSTOS (2 sugestoes agrupadas — 25 apoios / 2 contra):
-O top 1 pede reducao do custo de 7k gold para trocar genero de skin e retorno dos 50kk, enquanto outra sugestao (rank 7) critica o custo de 50kk para tentar daimon, alegando que incentiva bots e que o problema e a falta de fiscalizacao. O volume de apoio e alto e concentrado, indicando insatisfacao com barreiras financeiras que parecem arbitrarias. Se nao ajustado, pode gerar sensacao de pay-to-win excessivo e afastar jogadores casuais que nao conseguem participar dessas mecanicas.
+O tema mais votado é a redução do custo de troca de gênero de skin de 7k gold para 50kk, e também a reclamação sobre o custo de 50kk para fazer Daimon. Os jogadores consideram esses valores abusivos e pedem revisão. Com 16 e 9 apoios respectivamente, é um ponto de insatisfação claro e concentrado. Se não for ajustado, pode gerar descontentamento e sensação de pay-to-win excessivo.
 
-QUALIDADE DE VIDA E FARM (3 sugestoes agrupadas — 32 apoios / 4 contra):
-Reset de DG pelo NPC (rank 2 e rank 7) e stack de pedras 11/12 (rank 3) sao pedidos claros para otimizar o farm solo e gerenciamento de inventario. O reset automatico ao sair pelo NPC eliminaria a necessidade de refazer o caminho, e o stack de pedras liberaria slots. Com 32 apoios combinados e baixa rejeicao, e um tema recorrente que mostra que a base ativa valoriza eficiencia. A falta dessas melhorias aumenta o tedio e pode reduzir o tempo de jogo diario.
+QUALIDADE DE VIDA E FARM (3 sugestoes — 33 apoios / 4 contra):
+Pedem reset automático de dungeon ao sair pelo NPC (15 apoios), stack de pedras nível 11 e 12 (12 apoios) e limpeza de quests de clã (9 apoios). São melhorias que facilitam o dia a dia e otimizam inventário. Com 33 apoios combinados, é um desejo forte da comunidade. A implementação é de baixo esforço e alto impacto na satisfação.
 
-GAMEPLAY E CONTEUDO (4 sugestoes agrupadas — 35 apoios / 9 contra):
-Inclui retorno do Selo de Guan Yu (rank 3), liberar transmutacao da GOW (rank 4), passe da temporada com itens presos (rank 9) e rework de pets das WFs (rank 14). O Selo e a transmutacao sao itens que ja existiram e foram removidos, gerando nostalgia e desejo de retorno. O passe da temporada e um sistema que engajava. O rework de pets e um pedido tecnico. Com 35 apoios, e o tema mais fragmentado, mas com potencial de engajamento. Se ignorado, pode gerar sensacao de estagnacao de conteudo.
+GAMEPLAY E CONTEUDO (5 sugestoes — 56 apoios / 12 contra):
+Inclui melhoria de drop da Torre (13), retorno do Selo de Guan Yu (12), liberar transmutação GOW (11), alterar horário do 10x10 (9) e passe com itens presos (9). Além disso, a sugestão sobre limite de contas (11 apoios, mas 6 contra) também se encaixa. É o bloco mais volumoso, com 56 apoios. A Torre e o Selo são pedidos específicos de conteúdo; o 10x10 reflete necessidade de PvP organizado. A ausência de ações pode levar à perda de engajamento em instâncias e PvP.
 
-COMUNIDADE E SUPORTE (2 sugestoes agrupadas — 16 apoios / 2 contra):
-Melhoria no suporte de tickets (rank 5) e uniao de guildas (rank 10). O suporte e critico: jogadores sentem que tickets nao sao resolvidos, o que mina a confianca na administracao. A uniao de guildas e um pedido pontual. Com 16 apoios, o suporte e um ponto de atrito que pode levar a evasao se nao enderecado.
+BUGS E SUPORTE (3 sugestoes — 27 apoios / 3 contra):
+Reclamações sobre a Torre não atualizada (10), tickets não resolvidos (10) e quests de clã presas (9). Indicam falhas na comunicação e execução de atualizações. Com 27 apoios, é um sinal de alerta: se não houver correção e melhoria no suporte, a confiança no servidor diminui.
 
-EVENTOS E SISTEMAS (3 sugestoes agrupadas — 24 apoios / 10 contra):
-Aumento da duracao do 10x10 (rank 8), retorno do Passe da Season (rank 12) e implementacao de consignacao (rank 13). O 10x10 e um evento PvP que precisa de mais tempo ate o TW. O Passe da Season era bem avaliado. A consignacao facilitaria o comercio. Com 24 apoios, sao desejos secundarios, mas de facil implementacao.
+EVENTOS E ATENCAO AO SERVIDOR (3 sugestoes — 21 apoios / 3 contra):
+Pedem mais eventos, transmissão na Twitch, e trazer novidades da versão 1.2.6. Refletem sentimento de abandono e desejo de conteúdo novo. Com 21 apoios, é um pedido de médio porte, mas importante para retenção.
 
 VISAO GERAL E PRIORIDADES:
-O periodo revela um servidor com base ativa e engajada, mas com frustracoes concentradas em custos elevados (monetizacao) e falta de otimizacoes de qualidade de vida para farm. O top 1 (custo de skin e 50kk) e o tema de reset de DG dominam os votos, indicando que os jogadores querem menos barreiras financeiras e mais eficiencia no dia a dia. O suporte de tickets tambem e um ponto critico de confianca. Recomendacao: (1) reduzir custo de troca de genero de skin e revisar custo de daimon, (2) implementar reset de DG pelo NPC e stack de pedras, (3) melhorar o sistema de tickets com resposta efetiva. Eventos e conteudos sao secundarios, mas podem ser implementados em paralelo para manter o engajamento.</div>
+O período revela um servidor com base ativa, mas insatisfeita com custos elevados, falta de qualidade de vida e conteúdo desatualizado. O tema mais crítico é a monetização (custo de skin e Daimon), que gera atrito direto. Em segundo lugar, as melhorias de qualidade de vida (reset de dungeon, stack) são pedidos simples e de alto retorno. Em terceiro, a correção de bugs e suporte a tickets é urgente para restaurar confiança. Por fim, eventos e atenção ao servidor são desejos secundários, mas importantes para engajamento. Recomendação: (1) reduzir custo de troca de gênero e revisar custo de Daimon, (2) implementar reset de dungeon por NPC e stack de pedras, (3) corrigir bugs da Torre e melhorar suporte a tickets, (4) planejar calendário de eventos e transmissões.</div>
                             </div>
                             
                         </div>
@@ -1943,7 +2193,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">1</div>
-                                        <div class="feedback-titulo">Reduzir custo troca genero skin e 50kk</div>
+                                        <div class="feedback-titulo">Reduzir custo de troca de gênero de skin</div>
                                         <span class="priority priority-alta">alta</span>
                                     </div>
                                     <div class="feedback-card-body">
@@ -1956,7 +2206,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Monetizacao</span>
                                         </div>
-                                        <div class="feedback-resumo">Pedem para reduzir o custo de 7k gold para trocar genero de skin e voltar com os 50kk</div>
+                                        <div class="feedback-resumo">Pedem para reduzir o valor de 7k gold para trocar gênero de skin e voltar ao custo anterior de 50kk de moeda.</div>
                                     </div>
                                 </div>
                             
@@ -1965,12 +2215,12 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">2</div>
-                                        <div class="feedback-titulo">Reset de DG para farm solo</div>
+                                        <div class="feedback-titulo">Adicionar reset de dungeon para farm solo</div>
                                         <span class="priority priority-alta">alta</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 14</span>
+                                            <span class="fb-apoios">👍 15</span>
                                             <span class="fb-contra">👎 2</span>
                                             <div class="fb-bar-track">
                                                 <div class="fb-bar-like"    style="width:88%;"></div>
@@ -1978,7 +2228,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Qualidade de vida</span>
                                         </div>
-                                        <div class="feedback-resumo">Adicionar reset de dungeon pelo NPC ao sair para facilitar farm solo</div>
+                                        <div class="feedback-resumo">Solicitam um NPC no final das dungeons solo que permita reset automático ao sair, facilitando o farm.</div>
                                     </div>
                                 </div>
                             
@@ -1987,7 +2237,29 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">3</div>
-                                        <div class="feedback-titulo">Selo Guan Yu e stack pedras 11/12</div>
+                                        <div class="feedback-titulo">Melhorar drop da Torre</div>
+                                        <span class="priority priority-alta">alta</span>
+                                    </div>
+                                    <div class="feedback-card-body">
+                                        <div class="feedback-meta">
+                                            <span class="fb-apoios">👍 13</span>
+                                            <span class="fb-contra">👎 1</span>
+                                            <div class="fb-bar-track">
+                                                <div class="fb-bar-like"    style="width:93%;"></div>
+                                                <div class="fb-bar-dislike" style="width:7%;"></div>
+                                            </div>
+                                            <span>Gameplay</span>
+                                        </div>
+                                        <div class="feedback-resumo">Reclamam que 120 selos para 108 andares é pouco; pedem melhoria nos drops da Torre.</div>
+                                    </div>
+                                </div>
+                            
+                                
+                                
+                                <div class="feedback-card">
+                                    <div class="feedback-card-head">
+                                        <div class="feedback-rank">4</div>
+                                        <div class="feedback-titulo">Retorno do Selo de Guan Yu e stack de pedras</div>
                                         <span class="priority priority-alta">alta</span>
                                     </div>
                                     <div class="feedback-card-body">
@@ -2000,7 +2272,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Gameplay</span>
                                         </div>
-                                        <div class="feedback-resumo">Reintroduzir Selo de Guan Yu em 20x20/Minitw e permitir stack de pedras nv11/12 ate 999</div>
+                                        <div class="feedback-resumo">Pedem reintroduzir o Selo de Guan Yu em 20x20 e Minitw, e permitir empilhar pedras nível 11 e 12 até 999.</div>
                                     </div>
                                 </div>
                             
@@ -2008,8 +2280,8 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
-                                        <div class="feedback-rank">4</div>
-                                        <div class="feedback-titulo">Liberar transmutacao da GOW</div>
+                                        <div class="feedback-rank">5</div>
+                                        <div class="feedback-titulo">Liberar transmutação da GOW</div>
                                         <span class="priority priority-alta">alta</span>
                                     </div>
                                     <div class="feedback-card-body">
@@ -2022,7 +2294,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Gameplay</span>
                                         </div>
-                                        <div class="feedback-resumo">Pedem para liberar a transmutacao da arma GOW</div>
+                                        <div class="feedback-resumo">Solicitam liberar a transmutação da GOW (God of War).</div>
                                     </div>
                                 </div>
                             
@@ -2030,7 +2302,29 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
-                                        <div class="feedback-rank">5</div>
+                                        <div class="feedback-rank">6</div>
+                                        <div class="feedback-titulo">Corrigir atualização da Torre</div>
+                                        <span class="priority priority-alta">alta</span>
+                                    </div>
+                                    <div class="feedback-card-body">
+                                        <div class="feedback-meta">
+                                            <span class="fb-apoios">👍 10</span>
+                                            <span class="fb-contra">👎 1</span>
+                                            <div class="fb-bar-track">
+                                                <div class="fb-bar-like"    style="width:91%;"></div>
+                                                <div class="fb-bar-dislike" style="width:9%;"></div>
+                                            </div>
+                                            <span>Bugs</span>
+                                        </div>
+                                        <div class="feedback-resumo">Reclamam que a Torre não foi atualizada como prometido; salas 45+ continuam iguais.</div>
+                                    </div>
+                                </div>
+                            
+                                
+                                
+                                <div class="feedback-card">
+                                    <div class="feedback-card-head">
+                                        <div class="feedback-rank">7</div>
                                         <div class="feedback-titulo">Melhorar suporte de tickets</div>
                                         <span class="priority priority-alta">alta</span>
                                     </div>
@@ -2044,7 +2338,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Comunidade</span>
                                         </div>
-                                        <div class="feedback-resumo">Contratar alguem que resolva problemas reportados em tickets, nunca sao resolvidos</div>
+                                        <div class="feedback-resumo">Pedem contratar alguém que resolva os tickets de fato, pois nunca são resolvidos.</div>
                                     </div>
                                 </div>
                             
@@ -2052,8 +2346,30 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
-                                        <div class="feedback-rank">6</div>
-                                        <div class="feedback-titulo">Limpar quests removidas dos chars</div>
+                                        <div class="feedback-rank">8</div>
+                                        <div class="feedback-titulo">Alterar horário do 10x10 nos finais de semana</div>
+                                        <span class="priority priority-media">media</span>
+                                    </div>
+                                    <div class="feedback-card-body">
+                                        <div class="feedback-meta">
+                                            <span class="fb-apoios">👍 9</span>
+                                            <span class="fb-contra">👎 1</span>
+                                            <div class="fb-bar-track">
+                                                <div class="fb-bar-like"    style="width:90%;"></div>
+                                                <div class="fb-bar-dislike" style="width:10%;"></div>
+                                            </div>
+                                            <span>Gameplay</span>
+                                        </div>
+                                        <div class="feedback-resumo">Sugerem alterar o 10x10 para 2h durante finais de semana até não ter TW, pois é o único PvP organizado.</div>
+                                    </div>
+                                </div>
+                            
+                                
+                                
+                                <div class="feedback-card">
+                                    <div class="feedback-card-head">
+                                        <div class="feedback-rank">9</div>
+                                        <div class="feedback-titulo">Limpar quests removidas dos clãs</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
@@ -2066,7 +2382,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Bugs</span>
                                         </div>
-                                        <div class="feedback-resumo">Limpar quests que foram removidas e ficam presas nos personagens sem utilidade</div>
+                                        <div class="feedback-resumo">Pedem limpar quests que foram removidas dos clãs para não ficarem presas.</div>
                                     </div>
                                 </div>
                             
@@ -2074,8 +2390,8 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
-                                        <div class="feedback-rank">7</div>
-                                        <div class="feedback-titulo">Reset DG pelo NPC e custo daimon</div>
+                                        <div class="feedback-rank">10</div>
+                                        <div class="feedback-titulo">Reset de dungeon por NPC e custo de Daimon</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
@@ -2088,73 +2404,7 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                             </div>
                                             <span>Qualidade de vida</span>
                                         </div>
-                                        <div class="feedback-resumo">Reset automatico ao sair pelo NPC e reduzir custo de 50kk para tentar daimon</div>
-                                    </div>
-                                </div>
-                            
-                                
-                                
-                                <div class="feedback-card">
-                                    <div class="feedback-card-head">
-                                        <div class="feedback-rank">8</div>
-                                        <div class="feedback-titulo">Aumentar duracao 10x10 para 2h</div>
-                                        <span class="priority priority-media">media</span>
-                                    </div>
-                                    <div class="feedback-card-body">
-                                        <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 9</span>
-                                            <span class="fb-contra">👎 3</span>
-                                            <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:75%;"></div>
-                                                <div class="fb-bar-dislike" style="width:25%;"></div>
-                                            </div>
-                                            <span>Eventos</span>
-                                        </div>
-                                        <div class="feedback-resumo">Aumentar o tempo do evento 10x10 para duas horas ate ter TW</div>
-                                    </div>
-                                </div>
-                            
-                                
-                                
-                                <div class="feedback-card">
-                                    <div class="feedback-card-head">
-                                        <div class="feedback-rank">9</div>
-                                        <div class="feedback-titulo">Passe temporada com itens presos</div>
-                                        <span class="priority priority-media">media</span>
-                                    </div>
-                                    <div class="feedback-card-body">
-                                        <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 9</span>
-                                            <span class="fb-contra">👎 3</span>
-                                            <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:75%;"></div>
-                                                <div class="fb-bar-dislike" style="width:25%;"></div>
-                                            </div>
-                                            <span>Gameplay</span>
-                                        </div>
-                                        <div class="feedback-resumo">Querem passe da temporada com itens presos para farmar sangue barbaro sem ir BH</div>
-                                    </div>
-                                </div>
-                            
-                                
-                                
-                                <div class="feedback-card">
-                                    <div class="feedback-card-head">
-                                        <div class="feedback-rank">10</div>
-                                        <div class="feedback-titulo">Uniao de guildas PRIDE e SAVIORS</div>
-                                        <span class="priority priority-baixa">baixa</span>
-                                    </div>
-                                    <div class="feedback-card-body">
-                                        <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 6</span>
-                                            <span class="fb-contra">👎 1</span>
-                                            <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:86%;"></div>
-                                                <div class="fb-bar-dislike" style="width:14%;"></div>
-                                            </div>
-                                            <span>Comunidade</span>
-                                        </div>
-                                        <div class="feedback-resumo">Recuperacao judicial para PRIDE pagar dividas e unir com SAVIORS</div>
+                                        <div class="feedback-resumo">Solicitam reset automático ao sair pelo NPC e reclamam do custo de 50kk para fazer Daimon.</div>
                                     </div>
                                 </div>
                             
@@ -2163,20 +2413,20 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">11</div>
-                                        <div class="feedback-titulo">Manter 3 contas por IP ou subir para 4</div>
+                                        <div class="feedback-titulo">Passe da temporada com itens presos</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 10</span>
-                                            <span class="fb-contra">👎 6</span>
+                                            <span class="fb-apoios">👍 9</span>
+                                            <span class="fb-contra">👎 3</span>
                                             <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:62%;"></div>
-                                                <div class="fb-bar-dislike" style="width:38%;"></div>
+                                                <div class="fb-bar-like"    style="width:75%;"></div>
+                                                <div class="fb-bar-dislike" style="width:25%;"></div>
                                             </div>
                                             <span>Gameplay</span>
                                         </div>
-                                        <div class="feedback-resumo">Manter limite de 3 contas por IP ou subir para 4 para facilitar runs em grupo</div>
+                                        <div class="feedback-resumo">Pedem que o passe da temporada tenha apenas itens presos para farmar sangue bárbaro sem ir ao BH.</div>
                                     </div>
                                 </div>
                             
@@ -2185,20 +2435,20 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">12</div>
-                                        <div class="feedback-titulo">Voltar com Passe da Season</div>
+                                        <div class="feedback-titulo">Voltar transmissão do evento de quarta</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 8</span>
-                                            <span class="fb-contra">👎 4</span>
+                                            <span class="fb-apoios">👍 7</span>
+                                            <span class="fb-contra">👎 1</span>
                                             <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:67%;"></div>
-                                                <div class="fb-bar-dislike" style="width:33%;"></div>
+                                                <div class="fb-bar-like"    style="width:88%;"></div>
+                                                <div class="fb-bar-dislike" style="width:12%;"></div>
                                             </div>
-                                            <span>Eventos</span>
+                                            <span>Comunidade</span>
                                         </div>
-                                        <div class="feedback-resumo">Pedem o retorno do sistema de Passe da Season, que incentivava atividades e premios unicos</div>
+                                        <div class="feedback-resumo">Solicitam voltar com a transmissão na Twitch do evento de quarta-feira, que era bom e tinha investimento.</div>
                                     </div>
                                 </div>
                             
@@ -2207,20 +2457,20 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">13</div>
-                                        <div class="feedback-titulo">Implementar consignacao</div>
+                                        <div class="feedback-titulo">Mais atenção ao servidor com eventos e melhorias</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
                                             <span class="fb-apoios">👍 7</span>
-                                            <span class="fb-contra">👎 3</span>
+                                            <span class="fb-contra">👎 1</span>
                                             <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:70%;"></div>
-                                                <div class="fb-bar-dislike" style="width:30%;"></div>
+                                                <div class="fb-bar-like"    style="width:88%;"></div>
+                                                <div class="fb-bar-dislike" style="width:12%;"></div>
                                             </div>
-                                            <span>Qualidade de vida</span>
+                                            <span>Geral</span>
                                         </div>
-                                        <div class="feedback-resumo">Colocar sistema de consignacao para facilitar compra e venda, em vez de lojinhas</div>
+                                        <div class="feedback-resumo">Reclamam que o servidor parece abandonado, com atualizações bugadas, poucos eventos e premiações decepcionantes.</div>
                                     </div>
                                 </div>
                             
@@ -2229,20 +2479,20 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">14</div>
-                                        <div class="feedback-titulo">Rework nos pets das WFs</div>
+                                        <div class="feedback-titulo">Trazer novidades da versão 1.2.6 para cá</div>
                                         <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
                                             <span class="fb-apoios">👍 7</span>
-                                            <span class="fb-contra">👎 4</span>
+                                            <span class="fb-contra">👎 1</span>
                                             <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:64%;"></div>
-                                                <div class="fb-bar-dislike" style="width:36%;"></div>
+                                                <div class="fb-bar-like"    style="width:88%;"></div>
+                                                <div class="fb-bar-dislike" style="width:12%;"></div>
                                             </div>
-                                            <span>Gameplay</span>
+                                            <span>Eventos</span>
                                         </div>
-                                        <div class="feedback-resumo">Atualizar pets das WFs, principalmente o macaco, que morre com 2-3 skills e tem hp desatualizado</div>
+                                        <div class="feedback-resumo">Pedem para trazer diárias novas, evento PvP e passe de evento, adaptando recompensas, como foi feito na 1.2.6.</div>
                                     </div>
                                 </div>
                             
@@ -2251,20 +2501,20 @@ O periodo revela um servidor com base ativa e engajada, mas com frustracoes conc
                                 <div class="feedback-card">
                                     <div class="feedback-card-head">
                                         <div class="feedback-rank">15</div>
-                                        <div class="feedback-titulo">Trazer de volta a transmutada</div>
-                                        <span class="priority priority-baixa">baixa</span>
+                                        <div class="feedback-titulo">Manter limite de 3 contas por IP</div>
+                                        <span class="priority priority-media">media</span>
                                     </div>
                                     <div class="feedback-card-body">
                                         <div class="feedback-meta">
-                                            <span class="fb-apoios">👍 5</span>
-                                            <span class="fb-contra">👎 3</span>
+                                            <span class="fb-apoios">👍 11</span>
+                                            <span class="fb-contra">👎 6</span>
                                             <div class="fb-bar-track">
-                                                <div class="fb-bar-like"    style="width:62%;"></div>
-                                                <div class="fb-bar-dislike" style="width:38%;"></div>
+                                                <div class="fb-bar-like"    style="width:65%;"></div>
+                                                <div class="fb-bar-dislike" style="width:35%;"></div>
                                             </div>
                                             <span>Gameplay</span>
                                         </div>
-                                        <div class="feedback-resumo">Pedem o retorno da transmutada, considerada identidade do servidor e grande acerto</div>
+                                        <div class="feedback-resumo">Sugerem manter 3 contas por IP ou no máximo 4, para equilibrar farm e economia.</div>
                                     </div>
                                 </div>
                             
